@@ -1,6 +1,8 @@
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config bsdmainutils python3
+sudo apt-get install libssl-dev libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
+
 mkdir -p kriptokyng_setup/tmp
 cd kriptokyng_setup/tmp
-echo -e "Installed PostgreSQL v13.0 $COL_RESET"
 
 echo -e " Building Berkeley 4.8, this may take several minutes...$COL_RESET"
 mkdir -p /home/kriptokyng/berkeley/db4/
@@ -43,3 +45,17 @@ cd /home/kriptokyng/miningcore_setup/tmp
 sudo rm -r db-5.3.28.tar.gz db-5.3.28
 
 echo -e "Berkeley 5.3 Completed...$COL_RESET"
+
+echo -e " Building MiningCore, this may take several minutes...$COL_RESET"
+wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get update -y
+sudo apt-get install apt-transport-https -y
+sudo apt-get update -y
+sudo apt-get -y install dotnet-sdk-2.2 git cmake build-essential libssl-dev pkg-config libboost-all-dev libsodium-dev libzmq5
+cd
+git clone https://github.com/coinfoundry/miningcore
+cd miningcore/src/Miningcore
+
+echo -e "MiningCore Build Completed...$COL_RESET"
+
