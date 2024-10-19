@@ -1,3 +1,5 @@
+kdir -p kriptokyng_setup/tmp
+cd kriptokyng_setup/tmp
 echo -e "Installed PostgreSQL v13.0 $COL_RESET"
 
 echo -e " Building Berkeley 4.8, this may take several minutes...$COL_RESET"
