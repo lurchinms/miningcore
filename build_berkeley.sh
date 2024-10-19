@@ -1,4 +1,4 @@
-kdir -p kriptokyng_setup/tmp
+mkdir -p kriptokyng_setup/tmp
 cd kriptokyng_setup/tmp
 echo -e "Installed PostgreSQL v13.0 $COL_RESET"
 
