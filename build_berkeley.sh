@@ -33,7 +33,7 @@ echo -e "Berkeley 5.1 Completed...$COL_RESET"
 echo -e " Building Berkeley 5.3, this may take several minutes...$COL_RESET"
 mkdir -p /home/kriptokyng/berkeley/db5.3/
 cd /home/kriptokyng/miningcore_setup/tmp
-wget 'http://anduin.linuxfromscratch.org/BLFS/bdb/db-5.3.28.tar.gz'
+wget 'https://github.com/berkeleydb/libdb/releases/download/v5.3.28/db-5.3.28.tar.gz'
 tar -xzvf db-5.3.28.tar.gz
 cd db-5.3.28/build_unix/
 ../dist/configure --enable-cxx --disable-shared --with-pic --prefix=/home/kriptokyng/berkeley/db5.3/
