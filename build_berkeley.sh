@@ -17,7 +17,7 @@ echo -e "Berkeley 4.8 Completed...$COL_RESET"
 echo -e " Building Berkeley 5.1, this may take several minutes...$COL_RESET"
 mkdir -p /home/kriptokyng/berkeley/db5/
 cd /home/kriptokyng/miningcore_setup/tmp
-wget 'http://download.oracle.com/berkeley-db/db-5.1.29.tar.gz
+wget 'http://download.oracle.com/berkeley-db/db-5.1.29.tar.gz'
 tar -xzvf db-5.1.29.tar.gz
 cd db-5.1.29/build_unix/
 ../dist/configure --enable-cxx --disable-shared --with-pic --prefix=/home/kriptokyng/berkeley/db5/
