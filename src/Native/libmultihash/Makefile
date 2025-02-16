@@ -29,7 +29,8 @@ OBJECTS = allium.o aurum.o bcrypt.o blake.o c11.o dcrypt.o fresh.o lane.o megabt
 	skydoge.o yescrypt/sha256.o yescrypt/yescrypt.o yescrypt/yescrypt-opt.o \
 	yespower/crypto/blake2b-yp.o yespower/yespower-blake2b.o yespower/yespower-combined.o yespower/yespower-platform.o \
 	minotaur/crypto/sha256.o minotaur/crypto/yespower.o minotaur/minotaurx.o \
-	fishhash/3rdParty/keccak.o fishhash/fishhash.o
+	fishhash/3rdParty/keccak.o fishhash/fishhash.o \
+	xelisv2.o xelisv2-pepew/chacha20.o xelisv2-pepew/chacha20_dispatch.o
 
 all: $(TARGET)
 

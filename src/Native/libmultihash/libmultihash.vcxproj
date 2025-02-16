@@ -285,6 +285,10 @@
     <ClInclude Include="x17.h" />
     <ClInclude Include="x21s.h" />
     <ClInclude Include="x22i.h" />
+    <ClInclude Include="xelisv2.h" />
+    <ClInclude Include="xelisv2-pepew\aes.h" />
+    <ClInclude Include="xelisv2-pepew\chacha20.h" />
+    <ClInclude Include="xelisv2-pepew\cpu-features.h" />
     <ClInclude Include="sha512_256.h" />
     <ClInclude Include="minotaur\crypto\insecure_memzero.h" />
     <ClInclude Include="minotaur\crypto\sha256.h" />
@@ -410,6 +414,12 @@
     <ClCompile Include="x22i.c">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MaxSpeed</Optimization>
     </ClCompile>
+    <ClCompile Include="xelisv2.c" />
+    <ClCompile Include="xelisv2-pepew\chacha20.c" />
+    <ClCompile Include="xelisv2-pepew\chacha20_avx2.c" />
+    <ClCompile Include="xelisv2-pepew\chacha20_dispatch.c" />
+    <ClCompile Include="xelisv2-pepew\chacha20_sse2.c" />
+    <ClCompile Include="xelisv2-pepew\cpu-features.c" />
     <ClCompile Include="sha512_256.c" />
     <ClCompile Include="minotaur\crypto\sha256.c" />
     <ClCompile Include="minotaur\crypto\yespower.c" />
