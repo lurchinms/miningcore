@@ -2432,11 +2432,11 @@
         "canonicalName": "PepePow",
         "symbol": "PEPEW",
         "family": "bitcoin",
-        "website": "https://pepecore.com/",
-        "market": "",
-        "twitter": "https://twitter.com/pepepow_coin",
-        "telegram": "",
-        "discord": "https://discord.com/invite/jJgV73w8Zs",
+        "website": "https://pepepow.org/",
+        "market": "https://www.coingecko.com/en/coins/pepepow",
+        "twitter": "https://twitter.com/PEPEWCommunity",
+        "telegram": "https://t.me/pepewcommunity",
+        "discord": "https://discord.com/invite/sJgDVRkBcq",
         "coinbaseHasher": {
             "hash": "sha256d"
         },
