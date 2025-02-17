@@ -2100,6 +2100,34 @@
         "explorerTxLink": "https://mazacha.in/tx/{0}",
         "explorerAccountLink": "https://mazacha.in/address/{0}"
     },
+    "microbitcoin": {
+        "name": "MicroBitcoin",
+        "canonicalName": "MicroBitcoin",
+        "symbol": "MBC",
+        "family": "bitcoin",
+        "website": "https://microbitcoin.org/",
+        "twitter": "https://twitter.com/MicroBitcoinOrg",
+        "telegram": "",
+        "discord": "https://discordapp.com/invite/JuRrekx",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "power2b"
+        },
+        "blockHasher": {
+            "hash": "reverse",
+            "args": [
+                {
+                    "hash": "blake2b"
+                }
+            ]
+        },
+        "shareMultiplier": 65536,
+        "explorerBlockLink": "https://microbitcoinorg.github.io/explorer/#/block/$hash$",
+        "explorerTxLink": "https://microbitcoinorg.github.io/explorer/#/transaction/{0}",
+        "explorerAccountLink": "https://microbitcoinorg.github.io/explorer/#/address/{0}"
+    },
     "mincoin": {
         "name": "Mincoin",
         "canonicalName": "Mincoin",
