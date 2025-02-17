@@ -2046,7 +2046,7 @@
     },
     "maza": {
         "name": "Maza",
-        "canonicalName": "Mazacoin no ASICBoost",
+        "canonicalName": "Mazacoin",
         "symbol": "MAZA",
         "family": "bitcoin",
         "website": "http://www.mazacoin.org/",
@@ -2074,7 +2074,7 @@
     },
     "maza-minotaurx": {
         "name": "Maza",
-        "canonicalName": "Mazacoin Minotaurx",
+        "canonicalName": "Mazacoin",
         "symbol": "MAZA",
         "family": "bitcoin",
         "website": "http://www.mazacoin.org/",
@@ -2413,18 +2413,19 @@
             "hash": "sha256d"
         },
         "headerHasher": {
-            "hash": "memehash"
+            "hash": "xelisv2-pepew"
         },
         "blockHasher": {
             "hash": "reverse",
             "args": [
                 {
-                    "hash": "memehash"
+                    "hash": "xelisv2-pepew"
                 }
             ]
         },
         "hasMasterNodes": true,
         "hasFoundation": true,
+        "shareMultiplier": 65536,
         "explorerBlockLink": "https://explorer.pepepow.org/block/$hash$",
         "explorerTxLink": "https://explorer.pepepow.org/tx/{0}",
         "explorerAccountLink": "https://explorer.pepepow.org/address/{0}"
