@@ -45,14 +45,12 @@ public static class CryptonoteConstants
 public static class GntlConstants
 {
     public const decimal GntlMiningRewardInitial = 0.99m; 
-    public const int GntlMinBlockConfirmations = 18; 
 }
 
 public static class MoreloConstants
 {
     public const decimal MoreloReserveRewardInitial = 5.555m; // MiningReward = BlockReward - ReserveReward 
     public const decimal MoreloStaticTransactionFeeReserve = 1.0m; // Deduct static reserve for tx fees
-    public const int MoreloMinBlockConfirmations = 18; 
 }
 
 public static class EquilibriaConstants
