@@ -57,7 +57,6 @@ public static class EquilibriaConstants
 {
     public const int EquilibriaBlobType = 5;
     public const decimal EquilibriaMiningRewardInitial = 0.25m;
-    public const decimal EquilibriaReserveRewardInitial = 0.75m;
 }
 
 public static class ScalaConstants
