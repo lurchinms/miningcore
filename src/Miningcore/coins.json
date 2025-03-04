@@ -769,6 +769,7 @@
             ]
         },
         "hasMasterNodes": true,
+        "hasPayee": true,
         "explorerBlockLink": "https://blocks.dadar.xyz/block/$hash$",
         "explorerTxLink": "https://blocks.dadar.xyz/tx/{0}",
         "explorerAccountLink": "https://blocks.dadar.xyz/address/{0}"
