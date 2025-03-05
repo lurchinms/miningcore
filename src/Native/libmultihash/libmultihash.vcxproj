@@ -169,6 +169,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="allium.h" />
+    <ClInclude Include="argon2d.h" />
+    <ClInclude Include="argon2d/argon2.h" />
+    <ClInclude Include="argon2d/core.h" />
+    <ClInclude Include="argon2d/encoding.h" />
+    <ClInclude Include="argon2d/thread.h" />
     <ClInclude Include="aurum.h" />
     <ClInclude Include="bcrypt.h" />
     <ClInclude Include="blake.h" />
@@ -301,6 +306,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="allium.c" />
+    <ClCompile Include="argon2d.c" />
+    <ClCompile Include="argon2d/argon2.c" />
+    <ClCompile Include="argon2d/core.c" />
+    <ClCompile Include="argon2d/encoding.c" />
+    <ClCompile Include="argon2d/opt.c" />
+    <ClCompile Include="argon2d/thread.c" />
     <ClCompile Include="aurum.c" />
     <ClCompile Include="bcrypt.c" />
     <ClCompile Include="blake.c" />

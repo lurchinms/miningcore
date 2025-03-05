@@ -202,6 +202,18 @@ public static unsafe class Multihash
     [DllImport("libmultihash", EntryPoint = "allium_export", CallingConvention = CallingConvention.Cdecl)]
     public static extern void allium(byte* input, void* output, uint inputLength);
 
+    [DllImport("libmultihash", EntryPoint = "argon2d250_export", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void argon2d250(byte* input, void* output, uint inputLength);
+	
+    [DllImport("libmultihash", EntryPoint = "argon2d500_export", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void argon2d500(byte* input, void* output, uint inputLength);
+	
+    [DllImport("libmultihash", EntryPoint = "argon2d1000_export", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void argon2d1000(byte* input, void* output, uint inputLength);
+	
+    [DllImport("libmultihash", EntryPoint = "argon2d16000_export", CallingConvention = CallingConvention.Cdecl)]
+    public static extern void argon2d16000(byte* input, void* output, uint inputLength);
+	
     [DllImport("libmultihash", EntryPoint = "aurum_export", CallingConvention = CallingConvention.Cdecl)]
     public static extern void aurum(byte* input, void* output, uint inputLength);
 
