@@ -50,50 +50,86 @@ public class PoolApiController : ApiControllerBase
     #region Actions
 
     [HttpGet]
-    public async Task<GetPoolsResponse> Get(CancellationToken ct, [FromQuery] uint topMinersRange = 24)
+    public async Task<IActionResult> Get(CancellationToken ct,
+        [FromServices] CoinMarketCap.CoinMarketCapService service,
+        [FromQuery] uint topMinersRange = 24)
     {
-        var response = new GetPoolsResponse
+        try
         {
-            Pools = await Task.WhenAll(clusterConfig.Pools.Where(x => x.Enabled).Select(async config =>
+            var response = new GetPoolsResponse
             {
-                // load stats
-                var stats = await cf.Run(con => statsRepo.GetLastPoolStatsAsync(con, config.Id, ct));
-
-                // get pool
-                pools.TryGetValue(config.Id, out var pool);
-
-                // map
-                var result = config.ToPoolInfo(mapper, stats, pool);
-
-                // enrich
-                result.TotalPaid = await cf.Run(con => statsRepo.GetTotalPoolPaymentsAsync(con, config.Id, ct));
-                result.TotalBlocks = await cf.Run(con => blocksRepo.GetPoolBlockCountAsync(con, config.Id, ct));
-                result.TotalConfirmedBlocks = await cf.Run(con => blocksRepo.GetTotalConfirmedBlocksAsync(con, config.Id, ct));
-                result.TotalPendingBlocks = await cf.Run(con => blocksRepo.GetTotalPendingBlocksAsync(con, config.Id, ct));
-                // get reward of the last confirmed block and set BlockReward
-                result.BlockReward = await cf.Run(con => blocksRepo.GetLastConfirmedBlockRewardAsync(con, config.Id, ct));
-                var lastBlockTime = await cf.Run(con => blocksRepo.GetLastPoolBlockTimeAsync(con, config.Id, ct));
-                result.LastPoolBlockTime = lastBlockTime;
-
-                if(lastBlockTime.HasValue)
+                Pools = await Task.WhenAll(clusterConfig.Pools.Where(x => x.Enabled).Select(async config =>
                 {
-                    var startTime = lastBlockTime.Value;
-                    var poolEffort = await cf.Run(con => shareRepo.GetEffortBetweenCreatedAsync(con, config.Id, pool.ShareMultiplier, startTime, clock.Now, ct));
-                    if(poolEffort.HasValue)
-                        result.PoolEffort = poolEffort.Value;
+                    // load stats
+                    var stats = await cf.Run(con => statsRepo.GetLastPoolStatsAsync(con, config.Id, ct));
+
+                    // get pool
+                    pools.TryGetValue(config.Id, out var pool);
+
+                    // map
+                    var result = config.ToPoolInfo(mapper, stats, pool);
+
+                    // enrich
+                    result.TotalPaid = await cf.Run(con => statsRepo.GetTotalPoolPaymentsAsync(con, config.Id, ct));
+                    result.TotalBlocks = await cf.Run(con => blocksRepo.GetPoolBlockCountAsync(con, config.Id, ct));
+                    result.TotalConfirmedBlocks = await cf.Run(con => blocksRepo.GetTotalConfirmedBlocksAsync(con, config.Id, ct));
+                    result.TotalPendingBlocks = await cf.Run(con => blocksRepo.GetTotalPendingBlocksAsync(con, config.Id, ct));
+                    // get reward of the last confirmed block and set BlockReward
+                    result.BlockReward = await cf.Run(con => blocksRepo.GetLastConfirmedBlockRewardAsync(con, config.Id, ct));
+                    var lastBlockTime = await cf.Run(con => blocksRepo.GetLastPoolBlockTimeAsync(con, config.Id, ct));
+                    result.LastPoolBlockTime = lastBlockTime;
+
+                    if(lastBlockTime.HasValue)
+                    {
+                        var startTime = lastBlockTime.Value;
+                        var poolEffort = await cf.Run(con => shareRepo.GetEffortBetweenCreatedAsync(con, config.Id, pool.ShareMultiplier, startTime, clock.Now, ct));
+                        if(poolEffort.HasValue)
+                            result.PoolEffort = poolEffort.Value;
+                    }
+
+                    var from = clock.Now.AddHours(-topMinersRange);
+
+                    var minersByHashrate = await cf.Run(con => statsRepo.PagePoolMinersByHashrateAsync(con, config.Id, from, 0, 15, ct));
+
+                    result.TopMiners = minersByHashrate.Select(mapper.Map<MinerPerformanceStats>).ToArray();
+
+                    return result;
+                }).ToArray())
+            };
+
+            if(clusterConfig.CoinMarketCapApi.Enabled)
+            {
+                var symbols = string.Join(",", response?.Pools?.Select(Q => Q.Coin.Symbol));
+                if(!string.IsNullOrWhiteSpace(symbols))
+                {
+                    var result = await service.GetCryptoQuoteAsync(symbols);
+                    foreach(var item in response.Pools)
+                    {
+                        if(result.Data.TryGetValue(item.Coin.Symbol, out var marketCapData))
+                        {
+                            var marketData = marketCapData.Where(Q => string.Equals(item.Coin.Symbol, Q.Symbol, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                            if(marketData?.Quote != null && marketData.Quote.TryGetValue("USD", out var quote) && quote?.Price != null && quote.Price.HasValue)
+                            {
+                                item.Coin.Price = Math.Round(quote.Price.Value, 4);
+                                item.Coin.Logo = marketData.Logo;
+                                item.Coin.VolumeChange24H = quote.VolumeChange24H.HasValue ? Math.Round(quote.VolumeChange24H.Value, 4) : "n/a";
+                            }
+                            else
+                            {
+                                item.Coin.Price = "n/a";
+                                item.Coin.Logo = "n/a";
+                                item.Coin.VolumeChange24H = "n/a";
+                            }
+                        }
+                    }
                 }
-
-                var from = clock.Now.AddHours(-topMinersRange);
-
-                var minersByHashrate = await cf.Run(con => statsRepo.PagePoolMinersByHashrateAsync(con, config.Id, from, 0, 15, ct));
-
-                result.TopMiners = minersByHashrate.Select(mapper.Map<MinerPerformanceStats>).ToArray();
-
-                return result;
-            }).ToArray())
-        };
-
-        return response;
+            }
+            return Ok(response);
+        }
+        catch(Exception ex)
+        {
+            return Problem(detail: ex.Message, statusCode: 500, title: "Internal Server Error");
+        }
     }
 
     [HttpGet("/api/help")]
