@@ -13,6 +13,6 @@ public class PoolStats
     public long BlockHeight { get; set; }
     public int ConnectedPeers { get; set; }
     public int SharesPerSecond { get; set; }
-    public DateTime? LastPoolBlockTime { get; set; }
+
     public DateTime Created { get; set; }
 }
