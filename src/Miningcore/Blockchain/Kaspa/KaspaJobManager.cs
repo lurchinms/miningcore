@@ -342,604 +342,1971 @@ public class KaspaJobManager : JobManagerBase<KaspaJob>
             customCoinbaseHasher = new CShake256(null, Encoding.UTF8.GetBytes(KaspaConstants.CoinbaseProofOfWorkHash));
 
         if(customShareHasher is not CShake256)
-            customShareHasher = new CShake256(null, Encoding.UTF8.GetBytes(KaspaConstants.CoinbaseHeavyHash));
+            customShareHasher = new CShake256(null, Encoding.UTF8.GetBytes(KaspaConstants.CoinbaseHeavyHashs2def.h"
 
-        return new KaspaJob(customBlockHeaderHasher, customCoinbaseHasher, customShareHasher);
-    }
 
-    private async Task<bool> UpdateJob(CancellationToken ct, string via = null, kaspad.RpcBlock blockTemplate = null)
-    {
-        var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
 
-        return await Task.Run(() =>
-        {
-            using(cts)
-            {
-                try
-                {
-                    if(blockTemplate == null)
-                        return false;
 
-                    var job = currentJob;
 
-                    var isNew = (job == null || job.BlockTemplate?.Header.DaaScore < blockTemplate.Header.DaaScore);
 
-                    if(isNew)
-                        messageBus.NotifyChainHeight(poolConfig.Id, blockTemplate.Header.DaaScore, poolConfig.Template);
 
-                    if(isNew)
-                    {
-                        job = CreateJob((long) blockTemplate.Header.DaaScore);
 
-                        job.Init(blockTemplate, NextJobId());
 
-                        lock(jobLock)
-                        {
-                            validJobs.Insert(0, job);
 
-                            // trim active jobs
-                            while(validJobs.Count > maxActiveJobs)
-                                validJobs.RemoveAt(validJobs.Count - 1);
-                        }
-                        
-                        logger.Debug(() => $"blockTargetValue: {job.blockTargetValue}");
-                        logger.Debug(() => $"Difficulty: {job.Difficulty}");
-                        
-                        if(via != null)
-                            logger.Info(() => $"Detected new block {job.BlockTemplate.Header.DaaScore} [{via}]");
-                        else
-                            logger.Info(() => $"Detected new block {job.BlockTemplate.Header.DaaScore}");
 
-                        // update stats
-                        if (job.BlockTemplate.Header.DaaScore > BlockchainStats.BlockHeight)
-                        {
-                            // update stats
-                            BlockchainStats.LastNetworkBlockTime = clock.Now;
-                            BlockchainStats.BlockHeight = job.BlockTemplate.Header.DaaScore;
-                            BlockchainStats.NetworkDifficulty = job.Difficulty;
-                        }
-                        
-                        currentJob = job;
-                    }
-                    else
-                    {
-                        if(via != null)
-                            logger.Debug(() => $"Template update {job.BlockTemplate.Header.DaaScore}");
-                        else
-                            logger.Debug(() => $"Template update {job.BlockTemplate.Header.DaaScore}");
-                    }
 
-                    return isNew;
-                }
 
-                catch(OperationCanceledException)
-                {
-                    // ignored
-                }
 
-                catch(Exception ex)
-                {
-                    logger.Error(() => $"{ex.GetType().Name} '{ex.Message}' while updating new job");
-                }
 
-                return false;
-            }
-        }, cts.Token);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma once
+#line 32 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+#line 41 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+extern "C" {
+#line 45 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+#line 49 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+#pragma warning(push)
+#pragma warning(disable:4201)
+#pragma warning(disable:4214) 
+
+
+
+
+
+
+
+#line 61 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+#line 69 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+#line 71 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+#line 1 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\inaddr.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma once
+
+#pragma region Desktop Family or OneCore Family or Games Family
+
+
+
+
+
+
+typedef struct in_addr {
+        union {
+                struct { UCHAR s_b1,s_b2,s_b3,s_b4; } S_un_b;
+                struct { USHORT s_w1,s_w2; } S_un_w;
+                ULONG S_addr;
+        } S_un;
+
+
+
+
+
+
+} IN_ADDR, *PIN_ADDR,  *LPIN_ADDR;
+
+#line 40 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\inaddr.h"
+#pragma endregion
+
+#line 43 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\inaddr.h"
+#line 73 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+#pragma region Desktop Family or OneCore Family or Games Family
+
+
+
+
+typedef USHORT ADDRESS_FAMILY;
+#line 83 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#pragma endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 130 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+#line 138 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+#line 142 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+#line 146 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+#line 149 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#line 150 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#line 151 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+#line 153 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    
+                                    
+                                    
+
+
+
+
+
+
+                                    
+
+                                    
+
+                                    
+
+#line 222 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma region Desktop Family or OneCore Family or Games Family
+
+
+
+
+typedef struct sockaddr {
+
+
+
+#line 245 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+    ADDRESS_FAMILY sa_family;           
+#line 247 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+    CHAR sa_data[14];                   
+} SOCKADDR, *PSOCKADDR,  *LPSOCKADDR;
+
+
+
+
+
+
+
+
+typedef struct _SOCKET_ADDRESS {
+      LPSOCKADDR lpSockaddr;
+
+
+
+
+
+
+
+
+    INT iSockaddrLength;
+} SOCKET_ADDRESS, *PSOCKET_ADDRESS, *LPSOCKET_ADDRESS;
+#line 271 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#pragma endregion
+
+
+
+
+typedef struct _SOCKET_ADDRESS_LIST {
+    INT             iAddressCount;
+    SOCKET_ADDRESS  Address[1];
+} SOCKET_ADDRESS_LIST, *PSOCKET_ADDRESS_LIST,  *LPSOCKET_ADDRESS_LIST;
+
+
+
+
+
+
+
+#line 288 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+typedef struct _CSADDR_INFO {
+    SOCKET_ADDRESS LocalAddr ;
+    SOCKET_ADDRESS RemoteAddr ;
+    INT iSocketType ;
+    INT iProtocol ;
+} CSADDR_INFO, *PCSADDR_INFO,  * LPCSADDR_INFO ;
+#line 299 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 323 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+typedef struct sockaddr_storage {
+    ADDRESS_FAMILY ss_family;      
+
+    CHAR __ss_pad1[((sizeof(__int64)) - sizeof(USHORT))];  
+                                   
+                                   
+                                   
+    __int64 __ss_align;            
+    CHAR __ss_pad2[(128 - (sizeof(USHORT) + ((sizeof(__int64)) - sizeof(USHORT)) + (sizeof(__int64))))];  
+                                   
+                                   
+                                   
+} SOCKADDR_STORAGE_LH, *PSOCKADDR_STORAGE_LH,  *LPSOCKADDR_STORAGE_LH;
+
+#pragma region Desktop Family
+
+typedef struct sockaddr_storage_xp {
+    short ss_family;               
+
+    CHAR __ss_pad1[((sizeof(__int64)) - sizeof(USHORT))];  
+                                   
+                                   
+                                   
+    __int64 __ss_align;            
+    CHAR __ss_pad2[(128 - (sizeof(USHORT) + ((sizeof(__int64)) - sizeof(USHORT)) + (sizeof(__int64))))];  
+                                   
+                                   
+                                   
+} SOCKADDR_STORAGE_XP, *PSOCKADDR_STORAGE_XP,  *LPSOCKADDR_STORAGE_XP;
+#line 354 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#pragma endregion
+
+
+typedef SOCKADDR_STORAGE_LH SOCKADDR_STORAGE;
+typedef SOCKADDR_STORAGE *PSOCKADDR_STORAGE,  *LPSOCKADDR_STORAGE;
+
+
+
+#line 363 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+typedef struct _SOCKET_PROCESSOR_AFFINITY {
+    PROCESSOR_NUMBER Processor;
+    USHORT NumaNodeId;
+    USHORT Reserved;
+} SOCKET_PROCESSOR_AFFINITY, *PSOCKET_PROCESSOR_AFFINITY;
+#line 371 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 388 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 417 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+#line 422 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef enum {
+
+    IPPROTO_HOPOPTS       = 0,  
+#line 442 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+    IPPROTO_ICMP          = 1,
+    IPPROTO_IGMP          = 2,
+    IPPROTO_GGP           = 3,
+
+    IPPROTO_IPV4          = 4,
+#line 448 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+    IPPROTO_ST            = 5,
+#line 451 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+    IPPROTO_TCP           = 6,
+
+    IPPROTO_CBT           = 7,
+    IPPROTO_EGP           = 8,
+    IPPROTO_IGP           = 9,
+#line 457 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+    IPPROTO_PUP           = 12,
+    IPPROTO_UDP           = 17,
+    IPPROTO_IDP           = 22,
+
+    IPPROTO_RDP           = 27,
+#line 463 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+    IPPROTO_IPV6          = 41, 
+    IPPROTO_ROUTING       = 43, 
+    IPPROTO_FRAGMENT      = 44, 
+    IPPROTO_ESP           = 50, 
+    IPPROTO_AH            = 51, 
+    IPPROTO_ICMPV6        = 58, 
+    IPPROTO_NONE          = 59, 
+    IPPROTO_DSTOPTS       = 60, 
+#line 474 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+    IPPROTO_ND            = 77,
+
+    IPPROTO_ICLFXBM       = 78,
+#line 479 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+    IPPROTO_PIM           = 103,
+    IPPROTO_PGM           = 113,
+    IPPROTO_L2TP          = 115,
+    IPPROTO_SCTP          = 132,
+#line 485 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+    IPPROTO_RAW           = 255,
+
+    IPPROTO_MAX           = 256,
+
+
+
+    IPPROTO_RESERVED_RAW  = 257,
+    IPPROTO_RESERVED_IPSEC  = 258,
+    IPPROTO_RESERVED_IPSECOFFLOAD  = 259,
+    IPPROTO_RESERVED_WNV = 260,
+    IPPROTO_RESERVED_MAX  = 261
+} IPPROTO, *PIPROTO;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+
+
+
+
+
+
+
+
+
+
+
+#line 568 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma region Desktop Family or OneCore Family or Games Family
+
+
+
+
+
+typedef enum {
+    ScopeLevelInterface    = 1,
+    ScopeLevelLink         = 2,
+    ScopeLevelSubnet       = 3,
+    ScopeLevelAdmin        = 4,
+    ScopeLevelSite         = 5,
+    ScopeLevelOrganization = 8,
+    ScopeLevelGlobal       = 14,
+    ScopeLevelCount        = 16
+} SCOPE_LEVEL;
+
+typedef struct {
+    union {
+        struct {
+            ULONG Zone : 28;
+            ULONG Level : 4;
+        } ;
+        ULONG Value;
+    } ;
+} SCOPE_ID, *PSCOPE_ID;
+
+
+
+
+
+
+
+typedef struct sockaddr_in {
+
+
+
+#line 643 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+    ADDRESS_FAMILY sin_family;
+#line 645 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+    USHORT sin_port;
+    IN_ADDR sin_addr;
+    CHAR sin_zero[8];
+} SOCKADDR_IN, *PSOCKADDR_IN;
+
+#line 652 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#pragma endregion
+
+
+
+
+
+
+
+
+
+
+typedef struct sockaddr_dl {
+    ADDRESS_FAMILY sdl_family;
+    UCHAR sdl_data[8];
+    UCHAR sdl_zero[4];
+} SOCKADDR_DL, *PSOCKADDR_DL;
+
+#line 670 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct _WSABUF {
+    ULONG len;     
+      CHAR  *buf; 
+} WSABUF,  * LPWSABUF;
+
+
+
+
+
+typedef struct _WSAMSG {
+      LPSOCKADDR       name;              
+    INT              namelen;           
+    LPWSABUF         lpBuffers;         
+
+
+    ULONG            dwBufferCount;     
+
+
+#line 708 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+    WSABUF           Control;           
+
+
+    ULONG            dwFlags;           
+
+
+#line 716 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+} WSAMSG, *PWSAMSG, *  LPWSAMSG;
+
+
+
+
+
+
+#line 725 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+typedef struct cmsghdr {
+    SIZE_T      cmsg_len;
+    INT         cmsg_level;
+    INT         cmsg_type;
     
-    private async Task UpdateNetworkStatsAsync(CancellationToken ct)
-    {
-        try
-        {
-            // update stats
-            // we need a stream to communicate with Kaspad
-            var stream = rpc.MessageStream(null, null, ct);
+} WSACMSGHDR, *PWSACMSGHDR,  *LPWSACMSGHDR;
 
-            var request = new kaspad.KaspadMessage();
-            request.EstimateNetworkHashesPerSecondRequest = new kaspad.EstimateNetworkHashesPerSecondRequestMessage
-            {
-                WindowSize = 1000,
-            };
-            await stream.RequestStream.WriteAsync(request);
-            await foreach (var infoHashrate in stream.ResponseStream.ReadAllAsync(ct))
-            {
-                if(string.IsNullOrEmpty(infoHashrate.EstimateNetworkHashesPerSecondResponse.Error?.Message))
-                    BlockchainStats.NetworkHashrate = (double) infoHashrate.EstimateNetworkHashesPerSecondResponse.NetworkHashesPerSecond;
-                
-                break;
-            }
 
-            request = new kaspad.KaspadMessage();
-            request.GetConnectedPeerInfoRequest = new kaspad.GetConnectedPeerInfoRequestMessage();
-            await stream.RequestStream.WriteAsync(request);
-            await foreach (var info in stream.ResponseStream.ReadAllAsync(ct))
-            {
-                if(string.IsNullOrEmpty(info.GetConnectedPeerInfoResponse.Error?.Message))
-                    BlockchainStats.ConnectedPeers = info.GetConnectedPeerInfoResponse.Infos.Count;
-                
-                break;
-            }
-            await stream.RequestStream.CompleteAsync();
-        }
+typedef WSACMSGHDR CMSGHDR, *PCMSGHDR;
+#line 736 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
 
-        catch(Exception ex)
-        {
-            logger.Error(() => $"{ex.GetType().Name} '{ex.Message}' while updating network stats");
-        }
-    }
 
-    private async Task ShowDaemonSyncProgressAsync(CancellationToken ct)
-    {
-        // we need a stream to communicate with Kaspad
-        var stream = rpc.MessageStream(null, null, ct);
 
-        var request = new kaspad.KaspadMessage();
-        request.GetInfoRequest = new kaspad.GetInfoRequestMessage();
-        await Guard(() => stream.RequestStream.WriteAsync(request),
-            ex=> logger.Debug(ex));
-        await foreach (var info in stream.ResponseStream.ReadAllAsync(ct))
-        {
-            if(!string.IsNullOrEmpty(info.GetInfoResponse.Error?.Message))
-                logger.Debug(info.GetInfoResponse.Error?.Message);
 
-            if(info.GetInfoResponse.IsSynced != true && info.GetInfoResponse.IsUtxoIndexed != true)
-                logger.Info(() => $"Daemon is downloading headers ...");
-            
-            break;
-        }
-        await stream.RequestStream.CompleteAsync();
-    }
 
-    private async Task<bool> SubmitBlockAsync(CancellationToken ct, kaspad.RpcBlock block, object payload = null,
-        JsonSerializerSettings payloadJsonSerializerSettings = null)
-    {
-        Contract.RequiresNonNull(block);
-        
-        bool succeed = false;
 
-        try
-        {
-            // we need a stream to communicate with Kaspad
-            var stream = rpc.MessageStream(null, null, ct);
-            
-            var request = new kaspad.KaspadMessage();
-            request.SubmitBlockRequest = new kaspad.SubmitBlockRequestMessage
-            {
-                Block = block,
-                AllowNonDAABlocks = false,
-            };
-            await stream.RequestStream.WriteAsync(request);
-            await foreach (var response in stream.ResponseStream.ReadAllAsync(ct))
-            {
-                if(!string.IsNullOrEmpty(response.SubmitBlockResponse.Error?.Message))
-                {
-                    // We lost that battle
-                    logger.Warn(() => $"Block submission failed: {response.SubmitBlockResponse.Error?.Message} [{response.SubmitBlockResponse?.RejectReason.ToString()}]");
-                    messageBus.SendMessage(new AdminNotification("Block submission failed", $"Pool {poolConfig.Id}: {response.SubmitBlockResponse.Error?.Message} [{response.SubmitBlockResponse?.RejectReason.ToString()}]"));
-                }
-                else
-                    succeed = true;
 
-                break;
-            }
-            await stream.RequestStream.CompleteAsync();
-        }
-        
-        catch(Exception ex)
-        {
-            // We lost that battle
-            logger.Error(() => $"{ex.GetType().Name} '{ex.Message}' while submitting block");
-            messageBus.SendMessage(new AdminNotification("Block submission failed", $"Pool {poolConfig.Id} failed to submit block"));
-        }
-        
-        return succeed;
-    }
 
-    #region API-Surface
 
-    public IObservable<object[]> Jobs { get; private set; }
-    public BlockchainStats BlockchainStats { get; } = new();
-    public string Network => network;
 
-    public KaspaCoinTemplate Coin => coin;
 
-    public object[] GetSubscriberData(StratumConnection worker)
-    {
-        Contract.RequiresNonNull(worker);
 
-        var context = worker.ContextAs<KaspaWorkerContext>();
-        var extraNonce1Size = GetExtraNonce1Size();
 
-        // assign unique ExtraNonce1 to worker (miner)
-        context.ExtraNonce1 = extraNonceProvider.Next();
 
-        // setup response data
-        var responseData = new object[]
-        {
-            context.ExtraNonce1,
-            KaspaConstants.ExtranoncePlaceHolderLength - extraNonce1Size,
-        };
 
-        return responseData;
-    }
-    
-    public int GetExtraNonce1Size()
-    {
-        return extraPoolConfig?.ExtraNonce1Size ?? 2;
-    }
 
-    public virtual async ValueTask<Share> SubmitShareAsync(StratumConnection worker, object submission, CancellationToken ct)
-    {
-        Contract.RequiresNonNull(worker);
-        Contract.RequiresNonNull(submission);
-        
-        if(submission is not object[] submitParams)
-            throw new StratumException(StratumError.Other, "invalid params");
+#line 753 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
 
-        var context = worker.ContextAs<KaspaWorkerContext>();
 
-        var jobId = submitParams[1] as string;
-        var nonce = submitParams[2] as string;
 
-        KaspaJob job;
 
-        lock(jobLock)
-        {
-            job = validJobs.FirstOrDefault(x => x.JobId == jobId);
-        }
 
-        if(job == null)
-            throw new StratumException(StratumError.JobNotFound, "job not found");
 
-        // validate & process
-        var share = job.ProcessShare(worker, nonce);
 
-        // enrich share with common data
-        share.PoolId = poolConfig.Id;
-        share.IpAddress = worker.RemoteEndpoint.Address.ToString();
-        share.Miner = context.Miner;
-        share.Worker = context.Worker;
-        share.UserAgent = context.UserAgent;
-        share.Source = clusterConfig.ClusterName;
-        share.Created = clock.Now;
 
-        // if block candidate, submit & check if accepted by network
-        if(share.IsBlockCandidate)
-        {
-            logger.Info(() => $"Submitting block {share.BlockHeight} [{share.BlockHash}]");
 
-            var acceptResponse = await SubmitBlockAsync(ct, job.BlockTemplate);
 
-            // is it still a block candidate?
-            share.IsBlockCandidate = acceptResponse;
-            
-            if(share.IsBlockCandidate)
-            {
-                logger.Info(() => $"Daemon accepted block {share.BlockHeight} [{share.BlockHash}] submitted by {context.Miner}");
 
-                OnBlockFound();
 
-                // persist the nonce to make block unlocking a bit more reliable
-                share.TransactionConfirmationData = nonce;
-            }
 
-            else
-            {
-                // clear fields that no longer apply
-                share.TransactionConfirmationData = null;
-            }
-        }
 
-        return share;
-    }
-    
-    public bool ValidateIsLargeJob(string userAgent)
-    {
-        if(string.IsNullOrEmpty(userAgent))
-            return false;
-        
-        if(ValidateIsBzMiner(userAgent))
-            return true;
-        
-        if(ValidateIsIceRiverMiner(userAgent))
-            return true;
-        
-        return false;
-    }
-    
-    public bool ValidateIsBzMiner(string userAgent)
-    {
-        if(string.IsNullOrEmpty(userAgent))
-            return false;
-        
-        // Find matches
-        MatchCollection matchesUserAgentBzMiner = KaspaConstants.RegexUserAgentBzMiner.Matches(userAgent);
-        return (matchesUserAgentBzMiner.Count > 0);
-    }
-    
-    public bool ValidateIsGodMiner(string userAgent)
-    {
-        if(string.IsNullOrEmpty(userAgent))
-            return false;
-        
-        // Find matches
-        MatchCollection matchesUserAgentGodMiner = KaspaConstants.RegexUserAgentGodMiner.Matches(userAgent);
-        return (matchesUserAgentGodMiner.Count > 0);
-    }
-    
-    public bool ValidateIsIceRiverMiner(string userAgent)
-    {
-        if(string.IsNullOrEmpty(userAgent))
-            return false;
-        
-        // Find matches
-        MatchCollection matchesUserAgentIceRiverMiner = KaspaConstants.RegexUserAgentIceRiverMiner.Matches(userAgent);
-        return (matchesUserAgentIceRiverMiner.Count > 0);
-    }
 
-    #endregion // API-Surface
 
-    #region Overrides
 
-    protected override async Task PostStartInitAsync(CancellationToken ct)
-    {
-        // validate pool address
-        if(string.IsNullOrEmpty(poolConfig.Address))
-            throw new PoolStartupException($"Pool address is not configured", poolConfig.Id);
-        
-        // we need a stream to communicate with Kaspad
-        var stream = rpc.MessageStream(null, null, ct);
-        
-        var request = new kaspad.KaspadMessage();
-        request.GetCurrentNetworkRequest = new kaspad.GetCurrentNetworkRequestMessage();
-        await Guard(() => stream.RequestStream.WriteAsync(request),
-            ex=> throw new PoolStartupException($"Error writing a request in the communication stream '{ex.GetType().Name}' : {ex}", poolConfig.Id));
-        await foreach (var currentNetwork in stream.ResponseStream.ReadAllAsync(ct))
-        {
-            if(!string.IsNullOrEmpty(currentNetwork.GetCurrentNetworkResponse.Error?.Message))
-                throw new PoolStartupException($"Daemon reports: {currentNetwork.GetCurrentNetworkResponse.Error?.Message}", poolConfig.Id);
-            
-            network = currentNetwork.GetCurrentNetworkResponse.CurrentNetwork;
-            break;
-        }
-        
-        var (kaspaAddressUtility, errorKaspaAddressUtility) = KaspaUtils.ValidateAddress(poolConfig.Address, network, coin.Symbol);
-        if(errorKaspaAddressUtility != null)
-            throw new PoolStartupException($"Pool address: {poolConfig.Address} is invalid for network [{network}]: {errorKaspaAddressUtility}", poolConfig.Id);
-        else
-            logger.Info(() => $"Pool address: {poolConfig.Address} => {KaspaConstants.KaspaAddressType[kaspaAddressUtility.KaspaAddress.Version()]}");
-        
-        // update stats
-        BlockchainStats.NetworkType = network;
-        BlockchainStats.RewardType = "POW";
 
-        request = new kaspad.KaspadMessage();
-        request.GetInfoRequest = new kaspad.GetInfoRequestMessage();
-        await Guard(() => stream.RequestStream.WriteAsync(request),
-            ex=> throw new PoolStartupException($"Error writing a request in the communication stream '{ex.GetType().Name}' : {ex}", poolConfig.Id));
-        await foreach (var info in stream.ResponseStream.ReadAllAsync(ct))
-        {
-            if(!string.IsNullOrEmpty(info.GetInfoResponse.Error?.Message))
-                throw new PoolStartupException($"Daemon reports: {info.GetInfoResponse.Error?.Message}", poolConfig.Id);
-            
-            if(info.GetInfoResponse.IsUtxoIndexed != true)
-                throw new PoolStartupException("UTXO index is disabled", poolConfig.Id);
-            
-            extraData = (string) info.GetInfoResponse.ServerVersion + (!string.IsNullOrEmpty(extraData) ? "." + extraData : "");
-            break;
-        }
-        await stream.RequestStream.CompleteAsync();
 
-        // Payment-processing setup
-        if(clusterConfig.PaymentProcessing?.Enabled == true && poolConfig.PaymentProcessing?.Enabled == true)
-        {
-            // we need a call to communicate with kaspadWallet
-            var call = walletRpc.ShowAddressesAsync(new kaspaWalletd.ShowAddressesRequest(), null, null, ct);
-            
-            // check configured address belongs to wallet
-            var walletAddresses = await Guard(() => call.ResponseAsync,
-                ex=> throw new PoolStartupException($"Error validating pool address '{ex.GetType().Name}' : {ex}", poolConfig.Id));
-            call.Dispose();
 
-            if(!walletAddresses.Address.Contains(poolConfig.Address))
-                throw new PoolStartupException($"Pool address: {poolConfig.Address} is not controlled by pool wallet", poolConfig.Id);
-        }
-        
-        await UpdateNetworkStatsAsync(ct);
+#line 774 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
 
-        // Periodically update network stats
-        Observable.Interval(TimeSpan.FromMinutes(1))
-            .Select(via => Observable.FromAsync(() =>
-                Guard(()=> UpdateNetworkStatsAsync(ct),
-                    ex=> logger.Error(ex))))
-            .Concat()
-            .Subscribe();
 
-        SetupJobUpdates(ct);
-    }
 
-    public override void Configure(PoolConfig pc, ClusterConfig cc)
-    {
-        coin = pc.Template.As<KaspaCoinTemplate>();
 
-        extraPoolConfig = pc.Extra.SafeExtensionDataAs<KaspaPoolConfigExtra>();
-        extraPoolPaymentProcessingConfig = pc.PaymentProcessing.Extra.SafeExtensionDataAs<KaspaPaymentProcessingConfigExtra>();
-        
-        maxActiveJobs = extraPoolConfig?.MaxActiveJobs ?? 8;
-        extraData = extraPoolConfig?.ExtraData ?? "Miningcore";
-        
-        // extract standard daemon endpoints
-        daemonEndpoints = pc.Daemons
-            .Where(x => string.IsNullOrEmpty(x.Category))
-            .ToArray();
-        
-        if(cc.PaymentProcessing?.Enabled == true && pc.PaymentProcessing?.Enabled == true)
-        {
-            // extract wallet daemon endpoints
-            walletDaemonEndpoints = pc.Daemons
-                .Where(x => x.Category?.ToLower() == KaspaConstants.WalletDaemonCategory)
-                .ToArray();
 
-            if(walletDaemonEndpoints.Length == 0)
-                throw new PoolStartupException("Wallet-RPC daemon is not configured (Daemon configuration for kaspa-pools require an additional entry of category 'wallet' pointing to the wallet daemon)", pc.Id);
-        }
 
-        base.Configure(pc, cc);
-    }
 
-    protected override void ConfigureDaemons()
-    {
-        logger.Debug(() => $"ProtobufDaemonRpcServiceName: {extraPoolConfig?.ProtobufDaemonRpcServiceName ?? KaspaConstants.ProtobufDaemonRpcServiceName}");
-        
-        rpc = KaspaClientFactory.CreateKaspadRPCClient(daemonEndpoints, extraPoolConfig?.ProtobufDaemonRpcServiceName ?? KaspaConstants.ProtobufDaemonRpcServiceName);
-        
-        // Payment-processing setup
-        if(clusterConfig.PaymentProcessing?.Enabled == true && poolConfig.PaymentProcessing?.Enabled == true)
-        {
-            logger.Debug(() => $"ProtobufWalletRpcServiceName: {extraPoolConfig?.ProtobufWalletRpcServiceName ?? KaspaConstants.ProtobufWalletRpcServiceName}");
 
-            walletRpc = KaspaClientFactory.CreateKaspaWalletdRPCClient(walletDaemonEndpoints, extraPoolConfig?.ProtobufWalletRpcServiceName ?? KaspaConstants.ProtobufWalletRpcServiceName);
-        }
-    }
 
-    protected override async Task<bool> AreDaemonsHealthyAsync(CancellationToken ct)
-    {
-        // Payment-processing setup
-        if(clusterConfig.PaymentProcessing?.Enabled == true && poolConfig.PaymentProcessing?.Enabled == true)
-        {
-            // we need a call to communicate with kaspadWallet
-            var call = walletRpc.ShowAddressesAsync(new kaspaWalletd.ShowAddressesRequest(), null, null, ct);
 
-            // check configured address belongs to wallet
-            var walletAddresses = await Guard(() => call.ResponseAsync,
-                ex=> logger.Debug(ex));
-            call.Dispose();
 
-            if(walletAddresses == null)
-                return false;
-        }
-        
-        // we need a stream to communicate with Kaspad
-        var stream = rpc.MessageStream(null, null, ct);
-        
-        var request = new kaspad.KaspadMessage();
-        request.GetInfoRequest = new kaspad.GetInfoRequestMessage();
-        await Guard(() => stream.RequestStream.WriteAsync(request),
-            ex=> logger.Debug(ex));
-        bool areDaemonsHealthy = false;
-        await foreach (var info in stream.ResponseStream.ReadAllAsync(ct))
-        {
-            if(!string.IsNullOrEmpty(info.GetInfoResponse.Error?.Message))
-            {
-                logger.Debug(info.GetInfoResponse.Error?.Message);
-                return false;
-            }
-            
-            if(info.GetInfoResponse.IsUtxoIndexed != true)
-                throw new PoolStartupException("UTXO index is disabled", poolConfig.Id);
-            
-            // update stats
-            if(info.GetInfoResponse.ServerVersion != null)
-                BlockchainStats.NodeVersion = (string) info.GetInfoResponse.ServerVersion;
-            
-            areDaemonsHealthy = true;
-            break;
-        }
-        await stream.RequestStream.CompleteAsync();
 
-        return areDaemonsHealthy;
-    }
 
-    protected override async Task<bool> AreDaemonsConnectedAsync(CancellationToken ct)
-    {
-        // Payment-processing setup
-        if(clusterConfig.PaymentProcessing?.Enabled == true && poolConfig.PaymentProcessing?.Enabled == true)
-        {
-            // we need a call to communicate with kaspadWallet
-            var call = walletRpc.ShowAddressesAsync(new kaspaWalletd.ShowAddressesRequest(), null, null, ct);
 
-            // check if daemon responds
-            var walletAddresses = await Guard(() => call.ResponseAsync,
-                ex=> logger.Debug(ex));
-            call.Dispose();
 
-            if(walletAddresses == null)
-                return false;
-        }
-        
-        // we need a stream to communicate with Kaspad
-        var stream = rpc.MessageStream(null, null, ct);
-        
-        var request = new kaspad.KaspadMessage();
-        request.GetConnectedPeerInfoRequest = new kaspad.GetConnectedPeerInfoRequestMessage();
-        await Guard(() => stream.RequestStream.WriteAsync(request),
-            ex=> logger.Debug(ex));
-        int totalPeers = 0;
-        await foreach (var info in stream.ResponseStream.ReadAllAsync(ct))
-        {
-            if(!string.IsNullOrEmpty(info.GetConnectedPeerInfoResponse.Error?.Message))
-            {
-                logger.Debug(info.GetConnectedPeerInfoResponse.Error?.Message);
-                return false;
-            }
-            else
-                totalPeers = info.GetConnectedPeerInfoResponse.Infos.Count;
-            
-            break;
-        }
-        await stream.RequestStream.CompleteAsync();
-        
-        return totalPeers > 0;
-    }
 
-    protected override async Task EnsureDaemonsSynchedAsync(CancellationToken ct)
-    {
-        using var timer = new PeriodicTimer(TimeSpan.FromSeconds(5));
 
-        var syncPendingNotificationShown = false;
 
-        do
-        {
-            var isSynched = false;
-            
-            // we need a stream to communicate with Kaspad
-            var stream = rpc.MessageStream(null, null, ct);
 
-            var request = new kaspad.KaspadMessage();
-            request.GetInfoRequest = new kaspad.GetInfoRequestMessage();
-            await Guard(() => stream.RequestStream.WriteAsync(request),
-                ex=> logger.Debug(ex));
-            await foreach (var info in stream.ResponseStream.ReadAllAsync(ct))
-            {
-                if(!string.IsNullOrEmpty(info.GetInfoResponse.Error?.Message))
-                    logger.Debug(info.GetInfoResponse.Error?.Message);
 
-                isSynched = (info.GetInfoResponse.IsSynced == true && info.GetInfoResponse.IsUtxoIndexed == true);
-                break;
-            }
-            await stream.RequestStream.CompleteAsync();
 
-            if(isSynched)
-            {
-                logger.Info(() => "Daemon is synced with blockchain");
-                break;
-            }
 
-            if(!syncPendingNotificationShown)
-            {
-                logger.Info(() => "Daemon is still syncing with network. Manager will be started once synced.");
-                syncPendingNotificationShown = true;
-            }
 
-            await ShowDaemonSyncProgressAsync(ct);
-        } while(await timer.WaitForNextTickAsync(ct));
-    }
 
-    private object[] GetJobParamsForStratum()
-    {
-        var job = currentJob;
-        return job?.GetJobParams();
-    }
 
-    #endregion // Overrides
+
+
+#line 802 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 839 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 856 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct addrinfo
+{
+    int                 ai_flags;       
+    int                 ai_family;      
+    int                 ai_socktype;    
+    int                 ai_protocol;    
+    size_t              ai_addrlen;     
+    char *              ai_canonname;   
+      struct sockaddr *   ai_addr;        
+    struct addrinfo *   ai_next;        
 }
+ADDRINFOA, *PADDRINFOA;
+
+typedef struct addrinfoW
+{
+    int                 ai_flags;       
+    int                 ai_family;      
+    int                 ai_socktype;    
+    int                 ai_protocol;    
+    size_t              ai_addrlen;     
+    PWSTR               ai_canonname;   
+      struct sockaddr *   ai_addr;        
+    struct addrinfoW *  ai_next;        
+}
+ADDRINFOW, *PADDRINFOW;
+
+
+
+#pragma region App Family or OneCore Family or Games Family
+
+typedef struct __declspec(deprecated("Use " "ADDRINFOEXW" " instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings")) addrinfoexA
+{
+    int                 ai_flags;       
+    int                 ai_family;      
+    int                 ai_socktype;    
+    int                 ai_protocol;    
+    size_t              ai_addrlen;     
+    char               *ai_canonname;   
+    struct sockaddr    *ai_addr;        
+    void               *ai_blob;
+    size_t              ai_bloblen;
+    LPGUID              ai_provider;
+    struct addrinfoexA *ai_next;        
+} ADDRINFOEXA, *PADDRINFOEXA, *LPADDRINFOEXA;
+#line 955 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#pragma endregion
+
+typedef struct addrinfoexW
+{
+    int                 ai_flags;       
+    int                 ai_family;      
+    int                 ai_socktype;    
+    int                 ai_protocol;    
+    size_t              ai_addrlen;     
+    PWSTR               ai_canonname;   
+      struct sockaddr    *ai_addr;        
+      void               *ai_blob;
+    size_t              ai_bloblen;
+    LPGUID              ai_provider;
+    struct addrinfoexW *ai_next;        
+} ADDRINFOEXW, *PADDRINFOEXW, *LPADDRINFOEXW;
+
+#line 973 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+#pragma region Desktop Family
+
+typedef struct __declspec(deprecated("Use " "ADDRINFOEX2W" " instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings")) addrinfoex2A
+{
+    int                  ai_flags;       
+    int                  ai_family;      
+    int                  ai_socktype;    
+    int                  ai_protocol;    
+    size_t               ai_addrlen;     
+    char                *ai_canonname;   
+    struct sockaddr     *ai_addr;        
+    void                *ai_blob;
+    size_t              ai_bloblen;
+    LPGUID               ai_provider;
+    struct addrinfoex2A *ai_next;        
+    int                  ai_version;
+    char                *ai_fqdn;
+} ADDRINFOEX2A, *PADDRINFOEX2A, *LPADDRINFOEX2A;
+#line 1001 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#pragma endregion
+
+typedef struct addrinfoex2W
+{
+    int                  ai_flags;       
+    int                  ai_family;      
+    int                  ai_socktype;    
+    int                  ai_protocol;    
+    size_t               ai_addrlen;     
+    PWSTR                ai_canonname;   
+      struct sockaddr    *ai_addr;        
+      void               *ai_blob;
+    size_t               ai_bloblen;
+    LPGUID               ai_provider;
+    struct addrinfoex2W *ai_next;        
+    int                  ai_version;
+    PWSTR                ai_fqdn;
+} ADDRINFOEX2W, *PADDRINFOEX2W, *LPADDRINFOEX2W;
+
+typedef struct addrinfoex3
+{
+    int                  ai_flags;       
+    int                  ai_family;      
+    int                  ai_socktype;    
+    int                  ai_protocol;    
+    size_t               ai_addrlen;     
+    PWSTR                ai_canonname;   
+      struct sockaddr    *ai_addr;        
+      void               *ai_blob;
+    size_t               ai_bloblen;
+    LPGUID                 ai_provider;
+    struct addrinfoex3   *ai_next;        
+    int                  ai_version;
+    PWSTR                ai_fqdn;
+    int                  ai_interfaceindex;
+} ADDRINFOEX3, *PADDRINFOEX3, *LPADDRINFOEX3;
+
+typedef struct addrinfoex4
+{
+    int                  ai_flags;       
+    int                  ai_family;      
+    int                  ai_socktype;    
+    int                  ai_protocol;    
+    size_t               ai_addrlen;     
+    PWSTR                ai_canonname;   
+      struct sockaddr    *ai_addr;        
+      void               *ai_blob;
+    size_t               ai_bloblen;
+    GUID                 *ai_provider;
+    struct addrinfoex4   *ai_next;        
+    int                  ai_version;
+    PWSTR                ai_fqdn;
+    int                  ai_interfaceindex;
+    HANDLE               ai_resolutionhandle;
+} ADDRINFOEX4, *PADDRINFOEX4, *LPADDRINFOEX4;
+
+typedef struct addrinfoex5
+{
+    int                  ai_flags;       
+    int                  ai_family;      
+    int                  ai_socktype;    
+    int                  ai_protocol;    
+    size_t               ai_addrlen;     
+    PWSTR                ai_canonname;   
+      struct sockaddr    *ai_addr;        
+      void               *ai_blob;
+    size_t               ai_bloblen;
+    GUID                 *ai_provider;
+    struct addrinfoex5   *ai_next;        
+    int                  ai_version;
+    PWSTR                ai_fqdn;
+    int                  ai_interfaceindex;
+    HANDLE               ai_resolutionhandle;
+    unsigned int         ai_ttl;          
+} ADDRINFOEX5, *PADDRINFOEX5, *LPADDRINFOEX5;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct addrinfo_dns_server
+{
+    unsigned int     ai_servertype;
+    unsigned __int64 ai_flags;
+    unsigned int     ai_addrlen;
+      struct sockaddr *ai_addr;
+
+    union
+    {
+        PWSTR ai_template;
+    };
+} ADDRINFO_DNS_SERVER;
+
+
+
+
+
+
+
+
+
+typedef struct addrinfoex6
+{
+    int                  ai_flags;       
+    int                  ai_family;      
+    int                  ai_socktype;    
+    int                  ai_protocol;    
+    size_t               ai_addrlen;     
+    PWSTR                ai_canonname;   
+      struct sockaddr    *ai_addr;        
+      void               *ai_blob;
+    size_t               ai_bloblen;
+    GUID                 *ai_provider;
+    struct addrinfoex5   *ai_next;        
+    int                  ai_version;
+    PWSTR                ai_fqdn;
+    int                  ai_interfaceindex;
+    HANDLE               ai_resolutionhandle;
+    unsigned int         ai_ttl;          
+    unsigned int         ai_numservers;
+    ADDRINFO_DNS_SERVER  *ai_servers;
+    ULONG64              ai_responseflags;
+} ADDRINFOEX6, *PADDRINFOEX6;
+
+#line 1139 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 1163 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+#line 1167 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+#line 1179 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma warning(pop)
+
+
+}
+#line 1206 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#line 1207 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\shared\\ws2def.h"
+#line 117 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+
+
+
+
+typedef UINT_PTR        SOCKET;
+
+
+
+
+
+
+
+
+
+
+
+#line 135 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+typedef struct fd_set {
+        u_int fd_count;               
+        SOCKET  fd_array[64];   
+} fd_set;
+
+extern int __stdcall  __WSAFDIsSet(SOCKET fd, fd_set  *);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct timeval {
+        long    tv_sec;         
+        long    tv_usec;        
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+struct  hostent {
+        char     * h_name;           
+        char     *  * h_aliases;  
+        short   h_addrtype;             
+        short   h_length;               
+        char     *  * h_addr_list; 
+
+};
+
+
+
+
+
+struct  netent {
+        char     * n_name;           
+        char     *  * n_aliases;  
+        short   n_addrtype;             
+        u_long  n_net;                  
+};
+
+struct  servent {
+        char     * s_name;           
+        char     *  * s_aliases;  
+
+        char     * s_proto;          
+        short   s_port;                 
+
+
+
+#line 266 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+};
+
+struct  protoent {
+        char     * p_name;           
+        char     *  * p_aliases;  
+        short   p_proto;                
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct WSAData {
+        WORD                    wVersion;
+        WORD                    wHighVersion;
+
+        unsigned short          iMaxSockets;
+        unsigned short          iMaxUdpDg;
+        char  *              lpVendorInfo;
+        char                    szDescription[256+1];
+        char                    szSystemStatus[128+1];
+
+
+
+
+
+
+#line 380 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+} WSADATA,  * LPWSADATA;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 452 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+
+                                       
+                                       
+                                       
+
+
+
+
+
+struct sockproto {
+        u_short sp_family;              
+        u_short sp_protocol;            
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 498 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+
+
+
+
+
+struct  linger {
+        u_short l_onoff;                
+        u_short l_linger;               
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 527 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+
+
+#line 531 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 816 "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winsock2.h"
+
+
+
+
+
+
+
+
+
+
+
+typedef struct _OVERLAPPED *    LPWSAOVERLAPPED;
+
+
+
+
+
+
