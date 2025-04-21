@@ -484,7 +484,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
 
         isPoS = poolConfig.Template is BitcoinTemplate {IsPseudoPoS: true} ||
             (difficultyResponse.Values().Any(x => x.Path == "proof-of-stake" && !difficultyResponse.Values().Any(x => x.Path == "proof-of-work")));
-        
+
         forcePoolAddressDestinationWithPubKey = poolConfig.Template is BitcoinTemplate {ForcePoolAddressDestinationWithPubKey: true};
 
         // Create pool address script from response
