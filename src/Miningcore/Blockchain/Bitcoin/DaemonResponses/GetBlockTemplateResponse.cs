@@ -97,6 +97,15 @@ public class BlockTemplate
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
     public long CommunityAutonomousValue { get; set; }
 
+    /// <summary>
+    /// DeveloperFee
+    /// </summary>
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public string DeveloperFeeAddress { get; set; }
+
+    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    public long DeveloperFeeAmount { get; set; }
+
     [JsonExtensionData]
     public IDictionary<string, object> Extra { get; set; }
 }
