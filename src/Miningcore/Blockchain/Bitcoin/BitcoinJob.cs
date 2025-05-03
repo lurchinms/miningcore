@@ -356,9 +356,6 @@ public class BitcoinJob
         if(coin.HasDeveloper)
             rewardToPool = CreateDeveloperOutputs(tx, rewardToPool);
 
-        if(coin.HasDeveloperFee)
-            rewardToPool = CreateDeveloperFeeOutputs(tx, rewardToPool);
-
         // Remaining amount goes to pool
         tx.Outputs.Add(rewardToPool, poolAddressDestination);
 
@@ -868,20 +865,6 @@ public class BitcoinJob
 
     #endregion // Foundation
 
-    #region DeveloperFee
-
-    protected virtual Money CreateDeveloperFeeOutputs(Transaction tx, Money reward)
-    {
-        if(BlockTemplate.DeveloperFeeAmount > 0)
-        {
-            var payeeReward = BlockTemplate.DeveloperFeeAmount;
-            var payeeAddress = BitcoinUtils.AddressToDestination(BlockTemplate.DeveloperFeeAddress, network);
-            tx.Outputs.Add(payeeReward, payeeAddress);
-        }
-        return reward;
-    }
-    #endregion // DeveloperFee
-
     #region API-Surface
 
     public BlockTemplate BlockTemplate { get; protected set; }
@@ -932,7 +915,7 @@ public class BitcoinJob
         if(coin.HasMasterNodes)
         {
             masterNodeParameters = BlockTemplate.Extra.SafeExtensionDataAs<MasterNodeBlockTemplateExtra>();
-
+			
             if(coin.HasSmartNodes)
             {
                 if(masterNodeParameters.Extra?.ContainsKey("smartnode") == true)

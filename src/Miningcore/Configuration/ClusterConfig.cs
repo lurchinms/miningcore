@@ -18,7 +18,7 @@ public enum CoinFamily
 {
     [EnumMember(Value = "alephium")]
     Alephium,
-
+    
     [EnumMember(Value = "beam")]
     Beam,
 
@@ -27,22 +27,22 @@ public enum CoinFamily
 
     [EnumMember(Value = "conceal")]
     Conceal,
-
+    
     [EnumMember(Value = "cryptonote")]
     Cryptonote,
-
+    
     [EnumMember(Value = "equihash")]
     Equihash,
-
+    
     [EnumMember(Value = "ergo")]
     Ergo,
 
     [EnumMember(Value = "ethereum")]
     Ethereum,
-
+    
     [EnumMember(Value = "handshake")]
     Handshake,
-
+        
     [EnumMember(Value = "kaspa")]
     Kaspa,
 
@@ -226,7 +226,7 @@ public partial class BitcoinTemplate : CoinTemplate
 
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool HasMasterNodes { get; set; }
-
+    
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool HasSmartNodes { get; set; }
 
@@ -262,9 +262,6 @@ public partial class BitcoinTemplate : CoinTemplate
 
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool HasFoundation { get; set; }
-
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-    public bool HasDeveloperFee { get; set; }
 
     [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
     [DefaultValue(1.0d)]
@@ -332,19 +329,19 @@ public partial class ConcealCoinTemplate : CoinTemplate
     /// </summary>
     [JsonProperty(Order = -4, DefaultValueHandling = DefaultValueHandling.Include)]
     public int HashVariant { get; set; }
-
+    
     /// <summary>
     /// Blob type in order to build the correct blob from blobtemplate
     /// </summary>
     [JsonProperty(Order = -4, DefaultValueHandling = DefaultValueHandling.Include)]
     public int BlobType { get; set; }
-
+    
     /// <summary>
     /// Conceal network hashrate = `Difficulty / DifficultyTarget`
     /// See: parameter -> DIFFICULTY_TARGET in src/CryptoNoteConfig.h
     /// </summary>
     public ulong DifficultyTarget { get; set; }
-
+    
     /// <summary>
     /// Smallest unit for Blockreward formatting
     /// </summary>
@@ -500,7 +497,7 @@ public partial class CryptonoteCoinTemplate : CoinTemplate
     /// </summary>
     [JsonProperty(Order = -4, DefaultValueHandling = DefaultValueHandling.Include)]
     public int HashVariant { get; set; }
-
+    
     /// <summary>
     /// Blob type in order to build the correct blob from blobtemplate
     /// </summary>
@@ -699,7 +696,7 @@ public partial class EthereumCoinTemplate : CoinTemplate
     [DefaultValue(EthereumSubfamily.None)]
     [JsonConverter(typeof(StringEnumConverter), true)]
     public EthereumSubfamily Subfamily { get; set; }
-
+    
     /// <summary>
     /// Which hashing algorithm to use. (ethash, etchash, ubqhash or ethashb3)
     /// </summary>
