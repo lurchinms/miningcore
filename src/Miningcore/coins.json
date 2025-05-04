@@ -1944,7 +1944,7 @@
         "explorerBlockLink": "https://chainz.cryptoid.info/lcc/block.dws?$height$.htm",
         "explorerTxLink": "https://chainz.cryptoid.info/lcc/tx.dws?{0}.htm",
         "explorerAccountLink": "https://chainz.cryptoid.info/lcc/address.dws?{0}.htm"
-    },  
+    },
     "luckybit": {
         "name": "Lucky Bit",
         "symbol": "LUCKY",
@@ -6679,5 +6679,36 @@
         "explorerBlockLink": "https://rin-explorer.coin-miners.info/block/$hash$",
         "explorerTxLink": "https://rin-explorer.coin-miners.info/tx/{0}",
         "explorerAccountLink": "https://rin-explorer.coin-miners.info/address/{0}"
+    },
+    "adventurecoin": {
+        "name": "AdventureCoin",
+        "canonicalName": "AdventureCoin",
+        "symbol": "ADVC",
+        "family": "bitcoin",
+        "website": "https://www.adventurecoin.quest/",
+        "github": "https://github.com/AdventureCoin-ADVC/AdventureCoin",
+        "twitter": "https://x.com/AdventureCoinAD",
+        "telegram": "https://t.me/AdventureCoinADVC",
+        "discord": "https://discord.gg/xNJJXqKp3T",
+        "coinbaseHasher": {
+            "hash": "sha256d"
+        },
+        "headerHasher": {
+            "hash": "yespoweradvc"
+        },
+        "blockHasher": {
+            "hash": "reverse",
+            "args": [
+                {
+                    "hash": "sha256d"
+                }
+            ]
+        },
+        "hasDeveloper": true,
+        "shareMultiplier": 65536,
+        "coinbaseMinConfimations": 30,
+        "explorerBlockLink": "https://explorer.adventurecoin.quest/block/$hash$",
+        "explorerTxLink": "https://explorer.adventurecoin.quest/tx/{0}",
+        "explorerAccountLink": "https://explorer.adventurecoin.quest/address/{0}"
     }
 }
