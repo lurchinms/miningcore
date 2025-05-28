@@ -57,6 +57,10 @@ or
 ```console
 ./build-ubuntu-22.04.sh
 ```
+or
+```console
+./re-conpile.sh
+```
 
 ## Building on Windows
 
