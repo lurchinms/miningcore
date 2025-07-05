@@ -1,0 +1,5 @@
+# The existence of this file means shares could not be committed to the database.
+# You should stop the pool cluster and run the following command:
+# miningcore -c <path-to-config> -rs <path-to-this-file>
+
+{"poolId":"aursha","miner":"AGJDAABdPQu3TcpYLaJBGfKyihrar3Crsw","worker":"BRAINSOS","userAgent":"2025-02-21-0-e05df053-25.01-plus;bosminer-plus-tuner 0.9.0-e05df053","ipAddress":"::ffff:192.168.1.204","source":null,"difficulty":4096.0,"blockHeight":5226701,"blockReward":0.0,"blockRewardDouble":0.0,"blockHash":null,"blockType":null,"isBlockCandidate":false,"transactionConfirmationData":null,"networkDifficulty":4291984.551749983,"created":"2025-06-29T15:30:02.0186878Z"}
