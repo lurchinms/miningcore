@@ -98,7 +98,7 @@
 /home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/Miningcore.csproj.CoreCompileInputs.cache
 /home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/Miningcore.csproj.CopyComplete
 /home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/Miningcore.dll
+/home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/refint/Miningcore.dll
 /home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/Miningcore.pdb
 /home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/Miningcore.genruntimeconfig.cache
 /home/kriptokyng/miningcore/src/Miningcore/obj/Release/net6.0/ref/Miningcore.dll
-/home/kriptokyng/miningcore/src/Miningcore/bin/Release/net6.0/ref/Miningcore.dll
