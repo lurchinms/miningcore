@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Miningcore.Api.Requests;
 using Miningcore.Blockchain;
 using Miningcore.Configuration;
 using Miningcore.Mining;
@@ -35,6 +36,17 @@ public class ApiCoinConfig
 
     [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string CanonicalName { get; set; }
+
+    [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public object Price { get; set; }
+
+    [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string Logo { get; set; }
+
+    [System.Text.Json.Serialization.JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("volume_change_24h")]
+    [Newtonsoft.Json.JsonProperty("volume_change_24h")]
+    public object VolumeChange24H { get; set; }
 }
 
 public class ApiPoolPaymentProcessingConfig
