@@ -1,320 +1,384 @@
-using FluentValidation;
-using System.Security.Cryptography.X509Certificates;
+using System.Globalization;
+using System.Numerics;
+using Autofac;
+using JetBrains.Annotations;
+using Miningcore.Crypto;
+using Miningcore.Crypto.Hashing.Algorithms;
+using Miningcore.Crypto.Hashing.Ethash;
+using Miningcore.Crypto.Hashing.Progpow;
+using NBitcoin;
+using Newtonsoft.Json;
 
 namespace Miningcore.Configuration;
 
-#region Validators
-
-public class EmailSenderConfigValidator : AuthenticatedNetworkEndpointConfigValidator<EmailSenderConfig>
+public abstract partial class CoinTemplate
 {
-    public EmailSenderConfigValidator()
+    public T As<T>() where T : CoinTemplate
     {
-        RuleFor(j => j.FromAddress)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("EmailSender fromAddress missing or empty");
+        return (T) this;
     }
+
+    public abstract string GetAlgorithmName();
+
+    /// <summary>
+    /// json source file where this template originated from
+    /// </summary>
+    [JsonIgnore]
+    public string Source { get; set; }
 }
 
-public class AdminNotificationsValidator : AbstractValidator<AdminNotifications>
+public partial class AlephiumCoinTemplate
 {
-    public AdminNotificationsValidator()
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
     {
-        RuleFor(j => j.EmailAddress)
-            .NotNull()
-            .NotEmpty()
-            .When(x => x.Enabled)
-            .WithMessage("Admin notification recipient missing or empty");
+        return "Blake3";
     }
+
+    #endregion
 }
 
-public class NotificationsConfigValidator : AbstractValidator<NotificationsConfig>
+public partial class BeamCoinTemplate
 {
-    public NotificationsConfigValidator()
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
     {
-        RuleFor(j => j.Email)
-            .NotNull()
-            .When(x => x.Enabled)
-            .WithMessage("You must configure at least one notifications provider when notifications are enabled");
+        return "BeamHash";
     }
+
+    #endregion
 }
 
-public class NetworkEndpointConfigValidator<T> : AbstractValidator<T>
-    where T : NetworkEndpointConfig
+public partial class BitcoinTemplate
 {
-    public NetworkEndpointConfigValidator()
+    public BitcoinTemplate()
     {
-        RuleFor(j => j.Host)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Host missing or empty");
+        merkleTreeHasherValue = new Lazy<IHashAlgorithm>(() =>
+            HashAlgorithmFactory.GetHash(ComponentContext, MerkleTreeHasher));
 
-        RuleFor(j => j.Port)
-            .GreaterThan(0)
-            .WithMessage("Invalid port number '{PropertyValue}'");
+        coinbaseHasherValue = new Lazy<IHashAlgorithm>(() =>
+            HashAlgorithmFactory.GetHash(ComponentContext, CoinbaseHasher));
+
+        headerHasherValue = new Lazy<IHashAlgorithm>(() =>
+            HashAlgorithmFactory.GetHash(ComponentContext, HeaderHasher));
+
+        shareHasherValue = new Lazy<IHashAlgorithm>(() =>
+            HashAlgorithmFactory.GetHash(ComponentContext, ShareHasher));
+
+        blockHasherValue = new Lazy<IHashAlgorithm>(() =>
+            HashAlgorithmFactory.GetHash(ComponentContext, BlockHasher));
+
+        posBlockHasherValue = new Lazy<IHashAlgorithm>(() =>
+            HashAlgorithmFactory.GetHash(ComponentContext, PoSBlockHasher));
     }
-}
 
-public class AuthenticatedNetworkEndpointConfigValidator<T> : NetworkEndpointConfigValidator<T>
-    where T : AuthenticatedNetworkEndpointConfig
-{
-}
+    private readonly Lazy<IHashAlgorithm> merkleTreeHasherValue;
+    private readonly Lazy<IHashAlgorithm> coinbaseHasherValue;
+    private readonly Lazy<IHashAlgorithm> headerHasherValue;
+    private readonly Lazy<IHashAlgorithm> shareHasherValue;
+    private readonly Lazy<IHashAlgorithm> blockHasherValue;
+    private readonly Lazy<IHashAlgorithm> posBlockHasherValue;
 
-public class PoolEndpointValidator : AbstractValidator<PoolEndpoint>
-{
-    public PoolEndpointValidator()
+    public IComponentContext ComponentContext { get; [UsedImplicitly] init; }
+
+    public IHashAlgorithm MerkleTreeHasherValue => merkleTreeHasherValue.Value;
+    public IHashAlgorithm CoinbaseHasherValue => coinbaseHasherValue.Value;
+    public IHashAlgorithm HeaderHasherValue => headerHasherValue.Value;
+    public IHashAlgorithm ShareHasherValue => shareHasherValue.Value;
+    public IHashAlgorithm BlockHasherValue => blockHasherValue.Value;
+    public IHashAlgorithm PoSBlockHasherValue => posBlockHasherValue.Value;
+
+    public BitcoinNetworkParams GetNetwork(ChainName chain)
     {
-        RuleFor(j => j.Difficulty)
-            .GreaterThan(0)
-            .WithMessage("Pool Endpoint: Difficulty missing or invalid");
+        if(Networks == null || Networks.Count == 0)
+            return null;
 
-        RuleFor(j => j.TlsPfxFile)
-            .NotNull()
-            .NotEmpty()
-            .When(j => j.Tls)
-            .WithMessage("Pool Endpoint: Tls enabled but neither TlsPemFile nor TlsPfxFile specified");
+        if(chain == ChainName.Mainnet)
+            return Networks["main"];
+        else if(chain == ChainName.Testnet)
+            return Networks["test"];
+        else if(chain == ChainName.Regtest)
+            return Networks["regtest"];
 
-        RuleFor(j => j.TlsPfxFile)
-            .Must(File.Exists)
-            .When(j => j.Tls)
-            .WithMessage(j => $"Pool Endpoint: {j.TlsPfxFile} does not exist");
+        throw new NotSupportedException("unsupported network type");
+    }
 
-        RuleFor(j => j.TlsPfxFile)
-            .Must((j, h, c) =>
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        switch(Symbol)
+        {
+            case "HNS":
+                return HeaderHasherValue.GetType().Name + " + " + ShareHasherValue.GetType().Name;
+            case "KCN":
+                return HeaderHasherValue.GetType().Name;
+            default:
+                var hash = HeaderHasherValue;
+
+                if(hash.GetType() == typeof(DigestReverser))
+                    return ((DigestReverser) hash).Upstream.GetType().Name;
+
+                return hash.GetType().Name;
+        }
+    }
+
+    #endregion
+}
+
+public partial class EquihashCoinTemplate
+{
+    public partial class EquihashNetworkParams
+    {
+        public EquihashNetworkParams()
+        {
+            diff1Value = new Lazy<Org.BouncyCastle.Math.BigInteger>(() =>
             {
-                try
-                {
-                    var tlsCert = new X509Certificate2(h, j.TlsPfxPassword);
-                    return tlsCert.HasPrivateKey;
-                }
-                catch
-                {
-                    return false;
-                }
-            })
-            .When(j => j.Tls)
-            .WithMessage(j => $"Pool Endpoint: {j.TlsPfxFile} is not valid or does not include the private key and cannot be used");
-        RuleFor(j => j.VarDiff)
-            .SetValidator(new VarDiffConfigValidator())
-            .When(x => x.VarDiff != null);
-    }
-}
+                if(string.IsNullOrEmpty(Diff1))
+                    throw new InvalidOperationException("Diff1 has not yet been initialized");
 
-public class ApiConfigValidator : AbstractValidator<ApiConfig>
-{
-    public ApiConfigValidator()
-    {
-        RuleFor(j => j.ListenAddress)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("API: listenAddress missing or empty");
+                return new Org.BouncyCastle.Math.BigInteger(Diff1, 16);
+            });
 
-        RuleFor(j => j.Port)
-            .GreaterThan(0)
-            .WithMessage("API: Invalid port number '{PropertyValue}'");
-    }
-}
-
-public class VarDiffConfigValidator : AbstractValidator<VarDiffConfig>
-{
-    public VarDiffConfigValidator()
-    {
-        RuleFor(j => j.MaxDiff)
-            .GreaterThanOrEqualTo(x => x.MinDiff)
-            .When(x => x.MaxDiff.HasValue)
-            .WithMessage("VarDiff: max value must be greater or equal min value");
-
-        RuleFor(j => j.VariancePercent)
-            .InclusiveBetween(1, 100)
-            .WithMessage("VarDiff: variancePercent must be a percentage betwen 1 and 100");
-
-        RuleFor(j => j.TargetTime)
-            .GreaterThan(0)
-            .WithMessage("VarDiff: targetTime invalid");
-
-        RuleFor(j => j.RetargetTime)
-            .GreaterThan(0)
-            .WithMessage("VarDiff: retargetTime invalid");
-    }
-}
-
-public class PoolConfigValidator : AbstractValidator<PoolConfig>
-{
-    public PoolConfigValidator()
-    {
-        RuleFor(j => j.Id)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Pool: id missing or empty");
-
-        RuleFor(j => j.Coin)
-            .NotNull()
-            .WithMessage("Pool: Coin config missing or empty");
-
-        RuleFor(j => j.Ports)
-            .NotNull()
-            .NotEmpty()
-            .When(j => j.EnableInternalStratum == true)
-            .WithMessage("Pool: Stratum port config missing or empty");
-
-        RuleFor(j => j.Ports)
-            .Must((pc, ports, ctx) =>
+            diff1BValue = new Lazy<BigInteger>(() =>
             {
-                if(ports?.Keys.Any(port => port < 0) == true)
-                {
-                    ctx.MessageFormatter.AppendArgument("port", ports.Keys.First(port => port < 0));
-                    return false;
-                }
+                if(string.IsNullOrEmpty(Diff1))
+                    throw new InvalidOperationException("Diff1 has not yet been initialized");
 
-                return true;
-            })
-            .WithMessage("Pool: Invalid stratum port number {port}");
+                return BigInteger.Parse(Diff1, NumberStyles.HexNumber);
+            });
+        }
 
-        RuleForEach(j => j.Ports.Values)
-            .SetValidator(x => new PoolEndpointValidator())
-            .When(x => x.Ports != null);
+        private readonly Lazy<Org.BouncyCastle.Math.BigInteger> diff1Value;
+        private readonly Lazy<BigInteger> diff1BValue;
 
-        RuleFor(j => j.Address)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Pool: Wallet address missing or empty");
+        [JsonIgnore]
+        public Org.BouncyCastle.Math.BigInteger Diff1Value => diff1Value.Value;
 
-        RuleFor(j => j.Daemons)
-            .NotNull()
-            .NotEmpty()
-            .WithMessage("Pool: Daemons missing or empty");
+        [JsonIgnore]
+        public BigInteger Diff1BValue => diff1BValue.Value;
 
-        RuleForEach(j => j.Daemons)
-            .SetValidator(new AuthenticatedNetworkEndpointConfigValidator<DaemonEndpointConfig>());
+        [JsonIgnore]
+        public ulong FoundersRewardSubsidySlowStartShift => FoundersRewardSubsidySlowStartInterval / 2;
+
+        [JsonIgnore]
+        public ulong LastFoundersRewardBlockHeight => FoundersRewardSubsidyHalvingInterval + FoundersRewardSubsidySlowStartShift - 1;
     }
-}
 
-public class ClusterConfigValidator : AbstractValidator<ClusterConfig>
-{
-    public ClusterConfigValidator()
+    public EquihashNetworkParams GetNetwork(ChainName chain)
     {
-        RuleFor(j => j.PaymentProcessing)
-            .NotNull();
+        if(chain == ChainName.Mainnet)
+            return Networks["main"];
+        else if(chain == ChainName.Testnet)
+            return Networks["test"];
+        else if(chain == ChainName.Regtest)
+            return Networks["regtest"];
 
-        RuleFor(j => j.Persistence)
-            .NotNull()
-            .When(x => x.PaymentProcessing?.Enabled == true && x.ShareRelay == null);
-
-        RuleFor(j => j.Pools)
-            .NotNull()
-            .NotEmpty();
-
-        RuleFor(j => j.InstanceId)
-            .GreaterThan((byte) 0)
-            .When(x => x.InstanceId.HasValue)
-            .WithMessage("instanceId must either be omitted or be non-zero");;
-
-        // ensure pool ids are unique
-        RuleFor(j => j.Pools)
-            .Must((pc, pools, ctx) =>
-            {
-                var ids = pools
-                    .GroupBy(x => x.Id)
-                    .ToArray();
-
-                if(ids.Any(id => id.Count() > 1))
-                {
-                    ctx.MessageFormatter.AppendArgument("poolId", ids.First(id => id.Count() > 1).Key);
-                    return false;
-                }
-
-                return true;
-            })
-            .WithMessage("Duplicate pool id '{poolId}'");
-
-        // ensure stratum ports are not assigned multiple times
-        RuleFor(j => j.Pools)
-            .Must((pc, pools, ctx) =>
-            {
-                var ports = pools.Where(x => x.Ports?.Any() == true).SelectMany(x => x.Ports.Select(y => y.Key))
-                    .GroupBy(x => x)
-                    .ToArray();
-
-                foreach(var port in ports)
-                {
-                    if(port.Count() > 1)
-                    {
-                        ctx.MessageFormatter.AppendArgument("port", port.Key);
-                        return false;
-                    }
-                }
-
-                return true;
-            })
-            .WithMessage("Stratum port {port} assigned multiple times");
-
-        RuleForEach(j => j.Pools)
-            .SetValidator(new PoolConfigValidator());
+        throw new NotSupportedException("unsupported network type");
     }
+
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        switch(Symbol)
+        {
+            case "VRSC":
+                return "Verushash";
+            default:
+                // TODO: return variant
+                return "Equihash";
+        }
+    }
+
+    #endregion
 }
 
-#endregion // Validators
-
-public partial class ClusterLoggingConfig
+public partial class ConcealCoinTemplate
 {
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+//        switch(Hash)
+//        {
+//            case CryptonightHashType.RandomX:
+//                return "RandomX";
+//        }
+
+        return Hash.ToString();
+    }
+
+    #endregion
 }
 
-public partial class VarDiffConfig
+public partial class CryptonoteCoinTemplate
 {
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+//        switch(Hash)
+//        {
+//            case CryptonightHashType.RandomX:
+//                return "RandomX";
+//        }
+
+        return Hash.ToString();
+    }
+
+    #endregion
 }
 
-public partial class PoolShareBasedBanningConfig
+public partial class ErgoCoinTemplate
 {
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        return "Autolykos";
+    }
+
+    #endregion
 }
 
-public partial class PoolPaymentProcessingConfig
+public partial class EthereumCoinTemplate
 {
+    #region Overrides of CoinTemplate
+    
+    public EthereumCoinTemplate()
+    {
+        ethashLightValue = new Lazy<IEthashLight>(() =>
+            EthashFactory.GetEthash(Symbol, ComponentContext, Ethasher));
+    }
+
+    private readonly Lazy<IEthashLight> ethashLightValue;
+
+    public IComponentContext ComponentContext { get; [UsedImplicitly] init; }
+
+    public IEthashLight Ethash => ethashLightValue.Value;
+
+    public override string GetAlgorithmName()
+    {
+        return Ethash.AlgoName;
+    }
+
+    #endregion
 }
 
-public partial class ClusterPaymentProcessingConfig
+public partial class KaspaCoinTemplate
 {
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        switch(Symbol)
+        {
+            case "AIX":
+                return "AstrixHash";
+            case "KLS":
+                return "Karlsenhashv2";
+            case "CSS":
+            case "NTL":
+            case "NXL":
+            case "PUG":
+                return "Karlsenhash";
+            case "CAS":
+            case "HTN":
+            case "PYI":
+                return "Pyrinhash";
+            case "SPR":
+                return " SpectreX";
+            default:
+                // TODO: return variant
+                return "kHeavyHash";
+        }
+    }
+
+    #endregion
 }
 
-public partial class PersistenceConfig
+public partial class ProgpowCoinTemplate
 {
+    #region Overrides of CoinTemplate
+    
+    public ProgpowCoinTemplate() : base()
+    {
+        progpowLightValue = new Lazy<IProgpowLight>(() =>
+            ProgpowFactory.GetProgpow(Symbol, ComponentContext, Progpower));
+    }
+
+    private readonly Lazy<IProgpowLight> progpowLightValue;
+
+    public IProgpowLight ProgpowHasher => progpowLightValue.Value;
+
+    public override string GetAlgorithmName()
+    {
+        return ProgpowHasher.AlgoName;
+    }
+
+    #endregion
 }
 
-public partial class NetworkEndpointConfig
+public partial class WarthogCoinTemplate
 {
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        return "PoBW";
+    }
+
+    #endregion
 }
 
-public partial class AuthenticatedNetworkEndpointConfig
+public partial class XelisCoinTemplate
 {
+    #region Overrides of CoinTemplate
+
+    public override string GetAlgorithmName()
+    {
+        return "XelisHash";
+    }
+
+    #endregion
 }
 
-public partial class EmailSenderConfig
+public partial class ZanoCoinTemplate
 {
-}
+    #region Overrides of CoinTemplate
 
-public partial class AdminNotifications
-{
-}
+    public ZanoCoinTemplate() : base()
+    {
+        progpowLightValue = new Lazy<IProgpowLight>(() =>
+            ProgpowFactory.GetProgpow(Symbol, ComponentContext, Hash.ToString().ToLower()));
+    }
 
-public partial class NotificationsConfig
-{
-}
+    private readonly Lazy<IProgpowLight> progpowLightValue;
 
-public partial class ApiConfig
-{
+    public IComponentContext ComponentContext { get; [UsedImplicitly] init; }
+
+    public IProgpowLight ProgpowHasher => progpowLightValue.Value;
+
+    public override string GetAlgorithmName()
+    {
+        return Hash.ToString();
+    }
+
+    #endregion
 }
 
 public partial class PoolConfig
 {
+    /// <summary>
+    /// Back-reference to coin template for this pool
+    /// </summary>
+    [JsonIgnore]
+    public CoinTemplate Template { get; set; }
 }
 
-public partial class ClusterConfig
+public partial class CoinMarketCapApi
 {
-    public void Validate()
-    {
-        var validator = new ClusterConfigValidator();
-        var result = validator.Validate(this);
-
-        if(!result.IsValid)
-            throw new ValidationException(result.Errors);
-    }
 }
