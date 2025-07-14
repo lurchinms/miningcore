@@ -140,9 +140,8 @@ public class PayoutManager : BackgroundService
 
                 if(equihashTemplate.UseBitcoinPayoutHandler)
                     return CoinFamily.Bitcoin;
-
                 break;
-            
+
             case CoinFamily.Progpow:
                 return CoinFamily.Bitcoin;
         }
@@ -169,7 +168,7 @@ public class PayoutManager : BackgroundService
                     if(!block.Effort.HasValue)  // fill block effort if empty
                         await CalculateBlockEffortAsync(pool, poolConfig, block, handler, ct);
 
-                    if(!block.MinerEffort.HasValue)  // fill block miner effort if empty
+                    if(!block.MinerEffort.HasValue)  // fill block effort if empty
                         await CalculateMinerEffortAsync(pool, poolConfig, block, handler, ct);
 
                     switch(block.Status)
@@ -252,19 +251,20 @@ public class PayoutManager : BackgroundService
 
     private async Task CalculateMinerEffortAsync(IMiningPool pool, PoolConfig poolConfig, Block block, IPayoutHandler handler, CancellationToken ct)
     {
+
         // get share date-range
         var from = DateTime.MinValue;
         var to = block.Created;
 
-	var miner = block.Miner;
+        var miner = block.Miner;
 
- // get last block for pool even for "MinerEffort". We use the same method as pool effort because adding miner address in the equation will just create an overlap in the final calculationMore actions
+        // get last block for pool even for "MinerEffort". We use the same method as pool effort because adding miner address in the equation will just create an overlap in the final calculationMore actions
         var lastBlock = await cf.Run(con => blockRepo.GetBlockBeforeAsync(con, poolConfig.Id, new[]
         {
             BlockStatus.Confirmed,
             BlockStatus.Orphaned,
             BlockStatus.Pending,
-        }, block.Created, ct));
+        }, block.Created));
 
         if(lastBlock != null)
             from = lastBlock.Created;
@@ -273,6 +273,8 @@ public class PayoutManager : BackgroundService
 
         if(block.MinerEffort.HasValue)
             block.MinerEffort = handler.AdjustBlockEffort(block.MinerEffort.Value);
+
+
     }
 
     protected override async Task ExecuteAsync(CancellationToken ct)
