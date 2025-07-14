@@ -130,11 +130,12 @@ public class StatsRecorder : BackgroundService
                 // pool hashrate
                 var poolHashesAccumulated = result.Sum(x => x.Sum);
                 var poolHashrate = pool.HashrateFromShares(poolHashesAccumulated, poolHashTimeFrame);
-                pool.PoolStats.PoolHashrate = poolHashrate;
+                poolHashrate = Math.Floor(poolHashrate);
+                pool.PoolStats.PoolHashrate = (ulong) poolHashrate;
 
                 // pool shares
                 var poolHashesCountAccumulated = result.Sum(x => x.Count);
-                pool.PoolStats.SharesPerSecond = Math.Round(poolHashesCountAccumulated / poolHashTimeFrame, 3);
+                pool.PoolStats.SharesPerSecond = (int) (poolHashesCountAccumulated / poolHashTimeFrame);
 
                 messageBus.NotifyHashrateUpdated(pool.Config.Id, poolHashrate);
             }
