@@ -223,6 +223,7 @@ public class StatsRecorder : BackgroundService
 
                         // calculate miner/worker stats
                         var minerHashrate = pool.HashrateFromShares(item.Sum, minerHashTimeFrame);
+                        minerHashrate = Math.Floor(minerHashrate);
                         minerTotalHashrate += minerHashrate;
                         stats.Hashrate = minerHashrate;
                         stats.Worker = item.Worker;
