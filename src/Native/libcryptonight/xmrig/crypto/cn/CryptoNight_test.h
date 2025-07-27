@@ -8,7 +8,6 @@
  * Copyright 2018      Lee Clagett <https://github.com/vtnerd>
  * Copyright 2018-2020 SChernykh   <https://github.com/SChernykh>
  * Copyright 2016-2020 XMRig       <https://github.com/xmrig>, <support@xmrig.com>
- * Copyright 2024 FortuneBlock       <https://github.com/fortuneblockteam>
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -489,7 +488,6 @@ const static uint8_t test_output_gr[256] = {
 };
 #endif
 
-
 #ifdef XMRIG_ALGO_MIKE
 // "Mike"
 const static uint8_t test_output_mike[256] = {
@@ -511,9 +509,8 @@ const static uint8_t test_output_mike[256] = {
   0x73, 0x92, 0xee, 0x64, 0xa6, 0x44, 0xac, 0xd4, 0x33, 0xb8, 0x3b, 0x84, 0x42, 0x7e, 0x9a,
   0x80, 0xf0, 0xa8, 0x71, 0xf0, 0x81, 0xc4, 0xc1, 0x52, 0xff, 0x27, 0x4e, 0x7, 0xf0, 0x70
 };
+
 #endif
-
-
 } // namespace xmrig
 
 

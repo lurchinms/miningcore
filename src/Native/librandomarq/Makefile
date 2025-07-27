@@ -1,7 +1,7 @@
 # Create shared library librandomx.so from static library librandomx.a using --whole-archive
 
 CC = g++
-LDFLAGS = -shared -pthread -L. -Wl,-whole-archive librandomx.a -Wl,-no-whole-archive -Wl,-z,noexecstack
+LDFLAGS = -shared -pthread -L. -Wl,-whole-archive librandomx.a -Wl,-no-whole-archive
 LDLIBS = -lstdc++ -lgcc -lc
 TARGET  = librandomarq.so
 

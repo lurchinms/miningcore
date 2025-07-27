@@ -16,6 +16,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
 #include "allium.h"
+#include "aurum.h"
 #include "bcrypt.h"
 #include "keccak.h"
 #include "quark.h"
@@ -25,6 +26,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "skein.h"
 #include "skein2.h"
 #include "x11.h"
+#include "x11gost.h"
 #include "groestl.h"
 #include "blake.h"
 #include "fugue.h"
@@ -55,6 +57,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "sha256dt.h"
 #include "hmq17.h"
 #include "phi.h"
+#include "phi2.h"
 #include "verthash/h2.h"
 #include "equi/equihashverify.h"
 #include "heavyhash/heavyhash.h"
@@ -64,8 +67,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "yespower/yespower.h"
 #include "shake/cshake.h"
 #include "shake/shake.h"
-#include "flex/flex.h"
-#include "xelishash/xelishash.hpp"
+#include "memehash.h"
+#include "megabtx.h"
+#include "xelisv2.h"
+#include "x11kvs.h"
+#include "argon2d.h"
+#include "evohash.h"
 
 #ifdef _WIN32
 #include "blake2/ref/blake2.h"
@@ -89,6 +96,11 @@ extern "C" MODULE_API void scrypt_export(const char* input, char* output, uint32
 extern "C" MODULE_API void quark_export(const char* input, char* output, uint32_t input_len)
 {
 	quark_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void xelisv2_pepew_export(const char* input, char* output, uint32_t input_len)
+{
+    xelisv2_pepew_hash(input, output, input_len);
 }
 
 extern "C" MODULE_API void sha256csm_export(const char* input, char* output, uint32_t input_len)
@@ -136,9 +148,24 @@ extern "C" MODULE_API void phi_export(const char* input, char* output, uint32_t 
     phi_hash(input, output, input_len);
 }
 
+extern "C" MODULE_API void phi2_export(const char* input, char* output, uint32_t input_len)
+{
+    phi2_hash(input, output, input_len);
+}
+
 extern "C" MODULE_API void x11_export(const char* input, char* output, uint32_t input_len)
 {
 	x11_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void x11gost_export(const char *input, char *output, uint32_t input_len)
+{
+	x11gost_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void x11kvs_export(const char *input, char *output, uint32_t input_len)
+{
+	x11kvs_hash(input, output, input_len);
 }
 
 extern "C" MODULE_API void x13_export(const char* input, char* output, uint32_t input_len)
@@ -421,9 +448,29 @@ extern "C" MODULE_API void yespower_export(const char *input, char *output, uint
     yespower_hash(input, output, input_len);
 }
 
+extern "C" MODULE_API void yespowerADVC_export(const char *input, char *output, uint32_t input_len)
+{
+    yespowerADVC_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void yespowerEQPAY_export(const char *input, char *output, uint32_t input_len)
+{
+    yespowerEQPAY_hash(input, output, input_len);
+}
+
 extern "C" MODULE_API void yespowerIC_export(const char *input, char *output, uint32_t input_len)
 {
     yespowerIC_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void yespowerLTNCG_export(const char *input, char *output, uint32_t input_len)
+{
+    yespowerLTNCG_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void yespowerMGPC_export(const char *input, char *output, uint32_t input_len)
+{
+    yespowerMGPC_hash(input, output, input_len);
 }
 
 extern "C" MODULE_API void yespowerR16_export(const char *input, char *output, uint32_t input_len)
@@ -441,17 +488,42 @@ extern "C" MODULE_API void allium_export(const char *input, char *output, uint32
     allium_hash(input, output, input_len);
 }
 
-extern "C" MODULE_API void flex_export(const char *input, char *output)
+extern "C" MODULE_API void aurum_export(const char *input, char *output, uint32_t input_len)
 {
-    flex_hash(input, output);
+	aurum_hash(input, output, input_len);
 }
 
-extern "C" MODULE_API void xelis_hash_export(const unsigned char *input, unsigned char *output, uint32_t input_len)
+extern "C" MODULE_API void memehash_export(const char *input, char *output, uint32_t input_len)
 {
-    xelis_hash(input, input_len, output);
+	meme_hash(input, output, input_len);
 }
 
-extern "C" MODULE_API void xelis_hash_v2_export(const unsigned char *input, unsigned char *output, uint32_t input_len)
+extern "C" MODULE_API void megabtx_export(const char *input, char *output, uint32_t input_len)
 {
-    xelis_hash_v2(input, input_len, output);
+	megabtx_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void argon2d250_export(const char* input, char* output, uint32_t input_len)
+{
+    argon2d250_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void argon2d500_export(const char* input, char* output, uint32_t input_len)
+{
+    argon2d500_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void argon2d1000_export(const char* input, char* output, uint32_t input_len)
+{
+    argon2d1000_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void argon2d16000_export(const char* input, char* output, uint32_t input_len)
+{
+    argon2d16000_hash(input, output, input_len);
+}
+
+extern "C" MODULE_API void evohash_export(const char* input, char* output, uint32_t input_len)
+{
+	evohash_hash(input, output, input_len);
 }

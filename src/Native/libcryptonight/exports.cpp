@@ -29,6 +29,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "crypto/kawpow/KPHash.h"
 #include "3rdparty/libethash/ethash.h"
 #include "crypto/ghostrider/ghostrider.h"
+#include "crypto/flex/flex.h"
 #include "crypto/mike/mike.h"
 #include "crypto/common/portable/mm_malloc.h"
 
@@ -72,6 +73,10 @@ void ghostrider(const uint8_t* data, size_t size, uint8_t * output, cryptonight_
     xmrig::ghostrider::hash(data, size, output, ctx, nullptr);
 }
 
+void flex(const unsigned char* data, long unsigned int size, unsigned char* output, cryptonight_ctx** ctx, long unsigned int) {
+    flex_hash((const char*)data, (char*)output, ctx);
+}
+
 void mike(const uint8_t* data, size_t size, uint8_t* output, cryptonight_ctx** ctx, uint64_t) {
     xmrig::mike::hash(data, size, output, ctx, nullptr);
 }
@@ -92,7 +97,8 @@ static xmrig::cn_hash_fun get_cn_fn(const int algo) {
     case xmrig::Algorithm::CN_DOUBLE: return FNA(CN_DOUBLE);
     case xmrig::Algorithm::CN_CCX: return FNA(CN_CCX);
     case xmrig::Algorithm::GHOSTRIDER_RTM: return ghostrider;
-    case xmrig::Algorithm::GHOSTRIDER_MIKE: return mike;
+    case xmrig::Algorithm::FLEX_KCN: return flex;
+	case xmrig::Algorithm::GHOSTRIDER_MIKE: return mike;
     default: return FN(CN_R);
     }
 }
