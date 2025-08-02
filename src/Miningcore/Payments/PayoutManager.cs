@@ -142,6 +142,7 @@ public class PayoutManager : BackgroundService
                     return CoinFamily.Bitcoin;
 
                 break;
+            
             case CoinFamily.Progpow:
                 return CoinFamily.Bitcoin;
         }
@@ -257,7 +258,7 @@ public class PayoutManager : BackgroundService
 
 	var miner = block.Miner;
 
-        // get last block for pool even for "MinerEffort". We use the same method as pool effort because adding miner address in the equation will just create an overlap in the final calculationMore actions
+// get last block for pool even for "MinerEffort". We use the same method as pool effort because adding miner address in the equation will just create an overlap in the final calculationMore actions
         var lastBlock = await cf.Run(con => blockRepo.GetBlockBeforeAsync(con, poolConfig.Id, new[]
                 {
             BlockStatus.Confirmed,
