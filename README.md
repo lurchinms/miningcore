@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 <img src="https://github.com/lurchinms/miningcore/blob/main/logo.png" width="150">
-=======
+
 
 ### Features
 
