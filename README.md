@@ -5,8 +5,6 @@
 <<<<<<< HEAD
 <img src="https://github.com/lurchinms/miningcore/blob/main/logo.png" width="150">
 =======
-<img src="https://github.com/lurchinms/miningcore//blob/main/logo.png" width="150">
->>>>>>> 4fef73e008abdfdaf8528a8ca2cfd5eb1a95668b
 
 ### Features
 
