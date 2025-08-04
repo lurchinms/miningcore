@@ -2,7 +2,6 @@
 [![.NET](https://github.com/lurchinms/miningcore/actions/workflows/dotnet.yml/badge.svg)](https://github.com/lurchinms/miningcore/actions/workflows/dotnet.yml)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
-<<<<<<< HEAD
 <img src="https://github.com/lurchinms/miningcore/blob/main/logo.png" width="150">
 =======
 
