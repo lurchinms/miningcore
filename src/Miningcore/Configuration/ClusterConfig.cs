@@ -139,6 +139,13 @@ public abstract partial class CoinTemplate
     [JsonProperty(Order = -9)]
     public string Discord { get; set; }
 
+        /// <summary>
+    /// Github Link
+    /// </summary>
+    [JsonProperty(Order = -9)]
+    public string Github { get; set; }
+
+
     /// <summary>
     /// Telegram Group Link
     /// </summary>
