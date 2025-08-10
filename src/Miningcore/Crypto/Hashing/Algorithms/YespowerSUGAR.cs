@@ -3,7 +3,7 @@ using Miningcore.Native;
 
 namespace Miningcore.Crypto.Hashing.Algorithms;
 
-[Identifier("yespowermgpc")]
+[Identifier("yespowersugar")]
 public unsafe class YespowerSUGAR : IHashAlgorithm
 {
     public void Digest(ReadOnlySpan<byte> data, Span<byte> result, params object[] extra)
