@@ -14,7 +14,7 @@ public unsafe class YespowerSUGAR : IHashAlgorithm
         {
             fixed (byte* output = result)
             {
-                Multihash.yespower_sugar(input, output, (uint) data.Length);
+                Multihash.yespowerSugar(input, output, (uint) data.Length);
             }
         }
     }
