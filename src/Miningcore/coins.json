@@ -114,7 +114,7 @@
     "telegram": "",
     "discord": "",
     "coinbaseHasher": {
-      "hash": "sha256d"
+      "hash": "sha256s"
     },
     "headerHasher": {
       "hash": "groestl-myriad"
@@ -123,11 +123,11 @@
       "hash": "reverse",
       "args": [
         {
-          "hash": "scrypt",
-          "args": [1024, 1]
+          "hash": "sha256d"
         }
       ]
     },
+    "shareMultiplier": 256,    
     "blockTemplateRpcExtraParams": ["groestl"],
     "explorerBlockLink": "https://explorer.argentum.cc/?$hash$",
     "explorerTxLink": "https://explorer.argentum.cc/?(0)",
@@ -386,7 +386,7 @@
     "discord": "https://discord.gg/Fhm4758",
     "github": "https://github.com/aurarad/auroracoin",
     "coinbaseHasher": {
-      "hash": "sha256s"
+      "hash": "sha256d"
     },
     "headerHasher": {
       "hash": "groestl-myriad"
@@ -399,6 +399,7 @@
         }
       ]
     },
+    "shareMultiplier": 4096,    
     "blockTemplateRpcExtraParams": ["groestl"],
     "explorerBlockLink": "https://chainz.cryptoid.info/aur/block.dws?$height$.htm",
     "explorerTxLink": "https://chainz.cryptoid.info/aur/tx.dws?{0}.htm",
