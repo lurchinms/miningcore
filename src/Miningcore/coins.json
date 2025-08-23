@@ -386,7 +386,7 @@
     "discord": "https://discord.gg/Fhm4758",
     "github": "https://github.com/aurarad/auroracoin",
     "coinbaseHasher": {
-      "hash": "sha256d"
+      "hash": "sha256s"
     },
     "headerHasher": {
       "hash": "groestl-myriad"
@@ -395,8 +395,7 @@
       "hash": "reverse",
       "args": [
         {
-          "hash": "scrypt",
-          "args": [1024, 1]
+          "hash": "sha256d"
         }
       ]
     },
@@ -753,6 +752,35 @@
     "explorerBlockLink": "https://explorer.btcnickel.com/block/$hash$",
     "explorerTxLink": "https://explorer.btcnickel.com/tx/{0}",
     "explorerAccountLink": "https://explorer.btcnickel.com/address/{0}"
+  },
+  "bitcoinII": {
+    "name": "BitcoinII",
+    "canonicalName": "BitcoinII",
+    "symbol": "BC2",
+    "family": "bitcoin",
+    "website": "https://bitcoin-ii.org/",
+    "market": "",
+    "twitter": "https://x.com/BitcoinIIOrg",
+    "telegram": "",
+    "discord": "https://discord.com/invite/zUSkQHNVyG",
+    "github": "https://github.com/BitcoinII-Dev/BitcoinII",
+    "coinbaseHasher": {
+      "hash": "sha256d"
+    },
+    "headerHasher": {
+      "hash": "sha256d"
+    },
+    "blockHasher": {
+      "hash": "reverse",
+      "args": [
+        {
+          "hash": "sha256d"
+        }
+      ]
+    },
+    "explorerBlockLink": "https://bitcoinii.ddns.net/explorer/block-height/$hash$",
+    "explorerTxLink": "https://bitcoinii.ddns.net/explorer/tx/{0}",
+    "explorerAccountLink": "https://bitcoinii.ddns.net/explorer/address/{0}"
   },
   "bitnet": {
     "name": "BitNet",
@@ -1323,7 +1351,7 @@
     "explorerAccountLink": "https://axe-explorer.arcpool.com/address/{0}"
   },
   "digibyte-sha256": {
-    "name": "Digibyte",
+    "name": "Digibyte SHA256",
     "canonicalName": "Digibyte Sha256",
     "symbol": "DGB",
     "family": "bitcoin",
@@ -1353,7 +1381,7 @@
     "explorerAccountLink": "https://chainz.cryptoid.info/dgb/address.dws?{0}.htm"
   },
   "digibyte-scrypt": {
-    "name": "Digibyte",
+    "name": "Digibyt Scrypt",
     "canonicalName": "Digibyte Scypt",
     "symbol": "DGB",
     "family": "bitcoin",
@@ -2256,6 +2284,36 @@
     "explorerTxLink": "http://157.245.248.32:3000/#/tx/{0}",
     "explorerAccountLink": "http://157.245.248.32:3000/#/address/{0}"
   },
+  "kawra": {
+    "name": "Kawra",
+    "canonicalName": "Kawra",
+    "symbol": "KWR",
+    "family": "bitcoin",
+    "website": "https://www.kawra.org/",
+    "market": "",
+    "twitter": "https://x.com/kawracoin",
+    "telegram": "https://t.me/+JQMkmnG9fMJkNjBh",
+    "discord": "https://discord.com/invite/eFJ96wB7Kf",
+    "github": "https://github.com/kawracoin/Kawra-Source-Code",
+    "coinbaseHasher": {
+      "hash": "sha256d"
+    },
+    "headerHasher": {
+      "hash": "sha256d"
+    },
+    "blockHasher": {
+      "hash": "reverse",
+      "args": [
+        {
+          "hash": "sha256d"
+        }
+      ]
+    },
+    "explorerBlockLink": "https://explorer.kawra.org/block/$hash$",
+    "explorerTxLink": "https://explorer.kawra.org/tx/{0}",
+    "explorerAccountLink": "https://explorer.kawra.org/address/{0}"
+  },
+
   "kusa": {
     "name": "Kusa",
     "canonicalName": "Kusa",
@@ -3117,6 +3175,37 @@
     "explorerTxLink": "https://chainz.cryptoid.info/ppc/tx.dws?{0}.htm",
     "explorerAccountLink": "https://chainz.cryptoid.info/ppc/address.dws?{0}.htm"
   },
+  "phicoin": {
+    "name": "Phicoin",
+    "symbol": "PHI",
+    "family": "progpow",
+    "progpower": "phihash",
+    "website": "https://phicoin.net/",
+    "github": "https://github.com/PhicoinProject/phicoin",
+    "market": "",
+    "twitter": "https://x.com/PhicoinNet",
+    "telegram": "https://t.me/phicoin_official",
+    "discord": "https://discord.gg/phicoin",
+    "coinbaseHasher": {
+      "hash": "sha256d"
+    },
+    "headerHasher": {
+      "hash": "sha256d"
+    },
+    "blockHasher": {
+      "hash": "reverse",
+      "args": [
+        {
+          "hash": "sha256d"
+        }
+      ]
+    },
+    "hasCommunityAddress": true,
+    "shareMultiplier": 1,
+    "explorerBlockLink": "https://explorer.phicoin.net/block/$hash$",
+    "explorerTxLink": "https://explorer.phicoin.net/tx/{0}",
+    "explorerAccountLink": "https://explorer.phicoin.net/address/{0}"
+  },
   "picacoin": {
     "name": "Picacoin",
     "canonicalName": "Picacoin",
@@ -3417,6 +3506,7 @@
     "twitter": "https://twitter.com/RXD_Community",
     "telegram": "https://t.me/RadiantBlockchain",
     "discord": "https://discord.com/invite/radiantblockchain",
+    "github": "https://github.com/RadiantBlockchain/radiant-node",
     "coinbaseHasher": {
       "hash": "sha256d"
     },
@@ -3633,6 +3723,7 @@
     "twitter": "https://x.com/kingpepe111",
     "telegram": "https://t.me/kingpepe2",
     "discord": "https://discord.gg/c2XCTUnF",
+    "github": "https://github.com/kingpepe2/king-pepe-source-code",
     "coinbaseHasher": {
       "hash": "sha256d"
     },
@@ -4747,7 +4838,6 @@
     "explorerTxLink": "https://chain.tenzura.io/tx/{0}",
     "explorerAccountLink": "https://chain.tenzura.io/address/{0}"
   },
-
   "titcoin": {
     "name": "Titcoin",
     "canonicalName": "Titcoin",
@@ -4806,6 +4896,38 @@
     "explorerBlockLink": "https://explorer.tiltcoin.io/block/$hash$",
     "explorerTxLink": "https://explorer.tiltcoin.io/tx/{0}",
     "explorerAccountLink": "https://explorer.tiltcoin.io/address/{0}"
+  },
+  "trumpow": {
+    "name": "TrumPOW",
+    "canonicalName": "TrumPOW",
+    "symbol": "TRMP",
+    "family": "bitcoin",
+    "website": "https://trumpow.meme/",
+    "market": "",
+    "twitter": "https://x.com/TrmPow",
+    "telegram": "",
+    "discord": "https://discord.com/invite/ybRF4dny5B",
+    "github": "https://github.com/trumpowppc/trumpow",
+    "coinbaseHasher": {
+      "hash": "sha256d"
+    },
+    "headerHasher": {
+      "hash": "scrypt",
+      "args": [1024, 1]
+    },
+    "blockHasher": {
+      "hash": "reverse",
+      "args": [
+        {
+          "hash": "sha256d"
+        }
+      ]
+    },
+    "shareMultiplier": 65536,
+    "coinbaseMinConfimations": 251,
+    "explorerBlockLink": "https://explorer.trumpow.meme/block/$height$",
+    "explorerTxLink": "https://explorer.trumpow.meme/tx/{0}",
+    "explorerAccountLink": "https://explorer.trumpow.meme/address/{0}"
   },
   "veles-sha256": {
     "name": "Veles-Sha256",
