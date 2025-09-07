@@ -693,7 +693,6 @@
         }
       ]
     },
-    "coinbaseMinConfimations": 201,
     "explorerBlockLink": "http://explorer.btcs.pools4mining.com:3001/block/$hash$",
     "explorerTxLink": "http://explorer.btcs.pools4mining.com:3001/tx/{0}",
     "explorerAccountLink": "http://explorer.btcs.pools4mining.com:3001/address/{0}"
@@ -844,13 +843,14 @@
   "black gold coin": {
     "name": "Black Gold Coin",
     "canonicalName": "Black Gold Coin",
-    "symbol": "bgco",
+    "symbol": "BGCO",
     "family": "bitcoin",
     "website": "https://www.blackgoldcoin.org/",
     "market": "",
-    "twitter": "",
+    "twitter": "https://x.com/BlackGold_Coin",
     "telegram": "https://t.me/BlackGoldCoinCrypto",
     "discord": "https://discord.gg/93decYarZV",
+    "github": "https://github.com/BGCoinDev/bgcoin",
     "coinbaseHasher": {
       "hash": "sha256d"
     },
@@ -865,10 +865,9 @@
         }
       ]
     },
-    "blockTemplateRpcExtraParams": ["sha256d"],
-    "explorerBlockLink": "https://bgco-explorer.nitopool.fr/block.dws?$height$.htm",
-    "explorerTxLink": "https://bgco-explorer.nitopool.fr/tx.dws?{0}.htm",
-    "explorerAccountLink": "https://bgco-explorer.nitopool.fr/address.dws?{0}.htm"
+    "explorerBlockLink": "https://explorer.blackgoldcoin.org/block/$hash$",
+    "explorerTxLink": "https://explorer.blackgoldcoin.org/tx/{0}",
+    "explorerAccountLink": "https://explorer.blackgoldcoin.org/address/{0}"
   },
   "blobfish": {
     "name": "Blobfish",
@@ -1620,6 +1619,10 @@
         }
       ]
     },
+    "blockTemplateRpcExtraParams": [],
+    "coinbaseTxVersion": 2,
+    "isPseudoPoS": true,
+    "HasBrokenSendMany": true,
     "explorerBlockLink": "https://chainz.cryptoid.info/dem/block.dws?$height$.htm",
     "explorerTxLink": "https://chainz.cryptoid.info/dem/tx.dws?{0}.htm",
     "explorerAccountLink": "https://chainz.cryptoid.info/dem/address.dws?{0}.htm"
@@ -2314,7 +2317,38 @@
     "explorerTxLink": "https://explorer.kawra.org/tx/{0}",
     "explorerAccountLink": "https://explorer.kawra.org/address/{0}"
   },
-
+    "krypton": {
+    "name": "Krypton",
+    "canonicalName": "Auroracoin Scrypt",
+    "symbol": "KYP",
+    "family": "bitcoin",
+    "website": "https://krypton-project.com/",
+    "market": "",
+    "twitter": "",
+    "telegram": "",
+    "discord": "https://discord.com/invite/g8c64BccQZ",
+    "github": "https://github.com/Kryptonproject-crypto/Krypton",
+    "coinbaseHasher": {
+      "hash": "sha256d"
+    },
+    "headerHasher": {
+      "hash": "scrypt",
+      "args": [1024, 1]
+    },
+    "blockHasher": {
+      "hash": "reverse",
+      "args": [
+        {
+          "hash": "sha256d"
+        }
+      ]
+    },
+    "blockTemplateRpcExtraParams": ["scrypt"],
+    "shareMultiplier": 65536,
+    "explorerBlockLink": "https://krypton-project.com/explorer/search.php?q=$height$",
+    "explorerTxLink": "https://krypton-project.com/explorer/search.php?q={0}",
+    "explorerAccountLink": "https://krypton-project.com/explorer/search.php?q={0}"
+  },
   "kusa": {
     "name": "Kusa",
     "canonicalName": "Kusa",
@@ -3585,6 +3619,7 @@
   },
   "firo": {
     "name": "Firo",
+    "canonicalName": "Firo",
     "symbol": "FIRO",
     "family": "progpow",
     "website": "https://firo.org/",
@@ -3592,6 +3627,7 @@
     "twitter": "https://twitter.com/firoorg",
     "telegram": "https://t.me/firoorg",
     "discord": "https://discord.gg/TGZPRbRT3Y",
+    "github": "https://github.com/firoorg/firo",
     "coinbaseHasher": {
       "hash": "sha256d"
     },
@@ -4166,13 +4202,14 @@
   "briskcoin": {
     "name": "Briskcoin",
     "canonicalName": "Briskcoin",
-    "symbol": "AUR",
+    "symbol": "BKC",
     "family": "bitcoin",
     "website": "https://briskcoin.org/",
     "market": "https://coinpaprika.com/coin/bkc-briskcoin",
     "twitter": "https://x.com/briskcoin",
     "telegram": "https://t.me/+qL1VEele1vY2Njc1",
     "discord": "https://discord.com/invite/X9zjMZrZJV",
+    "github": "https://github.com/briskcoin-project/briskcoin",
     "coinbaseHasher": {
       "hash": "sha256d"
     },
@@ -4187,7 +4224,6 @@
         }
       ]
     },
-    "blockTemplateRpcExtraParams": ["sha256d"],
     "explorerBlockLink": "https://explorer.briskcoin.org/block-height/$height$",
     "explorerTxLink": "https://explorer.briskcoin.org/tx/{0}",
     "explorerAccountLink": "https://explorer.briskcoin.org/address/{0}"
