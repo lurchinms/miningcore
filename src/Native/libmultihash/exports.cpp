@@ -478,13 +478,7 @@ extern "C" MODULE_API void yespowerR16_export(const char *input, char *output, u
     yespowerR16_hash(input, output, input_len);
 }
 
-
 extern "C" MODULE_API void yespowerTIDE_export(const char *input, char *output, uint32_t input_len)
-{
-    yespowerSUGAR_hash(input, output, input_len);
-}
-
-extern "C" MODULE_API void yespowerSUGAR_export(const char *input, char *output, uint32_t input_len)
 {
     yespowerTIDE_hash(input, output, input_len);
 }
