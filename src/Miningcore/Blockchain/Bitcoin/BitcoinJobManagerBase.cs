@@ -448,8 +448,9 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
         };
 
         var responses = await rpc.ExecuteBatchAsync(logger, ct, requests);
+        JValue proofOfWork = null;
 
-        if(responses.Any(x => x.Error != null))
+        if (responses.Any(x => x.Error != null))
         {
             // filter out optional RPCs
             var errors = responses
@@ -458,8 +459,17 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
                     requests[i].Method != BitcoinCommands.GetAddressInfo)
                 .ToArray();
 
-            if(errors.Any())
+            if (errors.Any())
                 throw new PoolStartupException($"Init RPC failed: {string.Join(", ", errors.Select(y => y.Error.Message))}", poolConfig.Id);
+        }
+
+        if(responses[2].Response["difficulty"]?["proof-of-work"] != null)
+        {
+            responses[2].Response["difficulty"] = new JValue((double) responses[2].Response["difficulty"]["proof-of-work"]);
+        }
+        if(responses[3].Response["proof-of-work"] != null)
+        {
+            proofOfWork = new JValue((double) responses[3].Response["proof-of-work"]);
         }
 
         // extract results
@@ -467,7 +477,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
         var submitBlockResponse = responses[1];
         var blockchainInfoResponse = !hasLegacyDaemon ? responses[2].Response.ToObject<BlockchainInfo>() : null;
         var daemonInfoResponse = hasLegacyDaemon ? responses[2].Response.ToObject<DaemonInfo>() : null;
-        var difficultyResponse = responses[3].Response.ToObject<JToken>();
+        var difficultyResponse = proofOfWork != null ? proofOfWork : responses[3].Response.ToObject<JToken>();
         var addressInfoResponse = responses[4].Error == null ? responses[4].Response.ToObject<AddressInfo>() : null;
 
         // chain detection
