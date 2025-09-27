@@ -307,7 +307,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
     protected async Task<bool> AreDaemonsConnectedLegacyAsync(CancellationToken ct)
     {
         var response = await rpc.ExecuteAsync<DaemonInfo>(logger, BitcoinCommands.GetInfo, ct);
-        
+
         // update stats
         if(!string.IsNullOrEmpty(response.Response.Version))
             BlockchainStats.NodeVersion = (string) response.Response.Version;
@@ -450,7 +450,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
         var responses = await rpc.ExecuteBatchAsync(logger, ct, requests);
         JValue proofOfWork = null;
 
-        if (responses.Any(x => x.Error != null))
+        if(responses.Any(x => x.Error != null))
         {
             // filter out optional RPCs
             var errors = responses
@@ -459,15 +459,20 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
                     requests[i].Method != BitcoinCommands.GetAddressInfo)
                 .ToArray();
 
-            if (errors.Any())
+            if(errors.Any())
                 throw new PoolStartupException($"Init RPC failed: {string.Join(", ", errors.Select(y => y.Error.Message))}", poolConfig.Id);
         }
 
-        if(responses[2].Response["difficulty"]?["proof-of-work"] != null)
+        var proofOfWorkToken2 = responses[2].Response.SelectToken("difficulty.proof-of-work");
+
+        if(proofOfWorkToken2 != null)
         {
             responses[2].Response["difficulty"] = new JValue((double) responses[2].Response["difficulty"]["proof-of-work"]);
         }
-        if(responses[3].Response["proof-of-work"] != null)
+
+        var proofOfWorkToken3 = responses[3].Response.SelectToken("proof-of-work");
+
+        if(proofOfWorkToken3 != null)
         {
             proofOfWork = new JValue((double) responses[3].Response["proof-of-work"]);
         }
@@ -494,7 +499,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
 
         isPoS = poolConfig.Template is BitcoinTemplate {IsPseudoPoS: true} ||
             (difficultyResponse.Values().Any(x => x.Path == "proof-of-stake" && !difficultyResponse.Values().Any(x => x.Path == "proof-of-work")));
-        
+
         forcePoolAddressDestinationWithPubKey = poolConfig.Template is BitcoinTemplate {ForcePoolAddressDestinationWithPubKey: true};
 
         // Create pool address script from response
