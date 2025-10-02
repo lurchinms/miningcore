@@ -392,6 +392,15 @@ public class BitcoinJob
         var extraNonce1Bytes = extraNonce1.HexToByteArray();
         var extraNonce2Bytes = extraNonce2.HexToByteArray();
 
+         /* for dev
+         var coinbase = new byte[coinbaseInitial.Length + extraNonce1Bytes.Length + extraNonce2Bytes.Length + coinbaseFinal.Length];
+        Buffer.BlockCopy(coinbaseInitial, 0, coinbase, 0, coinbaseInitial.Length);
+        Buffer.BlockCopy(extraNonce1Bytes, 0, coinbase, coinbaseInitial.Length, extraNonce1Bytes.Length);
+        Buffer.BlockCopy(extraNonce2Bytes, 0, coinbase, coinbaseInitial.Length + extraNonce1Bytes.Length, extraNonce2Bytes.Length);
+        Buffer.BlockCopy(coinbaseFinal, 0, coinbase, coinbaseInitial.Length + extraNonce1Bytes.Length + extraNonce2Bytes.Length, coinbaseFinal.Length);
+
+        var test = coinbase.ToHexString(); */
+
         using(var stream = new MemoryStream())
         {
             stream.Write(coinbaseInitial);
