@@ -4909,16 +4909,13 @@
     },
     "tenzura": {
         "name": "Tenzura",
-        "canonicalName": "Tenzura",
-        "symbol": "tenz",
+        "symbol": "TENZ",
         "family": "progpow",
-        "progpower": "kawpow",
-        "website": "https://tenzura.org/",
-        "market": "",
-        "twitter": "",
-        "telegram": "",
-        "discord": "https://discord.com/invite/S9kefr94eW",
+        "website": "https://www.tenzura.io/",
+        "market": "https://coinmarketcap.com/currencies/tenzura/",
+        "twitter": "https://x.com/tenzura_io",
         "github": "https://github.com/Tenzura/Tenzura",
+        "discord": "https://discord.gg/S9kefr94eW",
         "coinbaseHasher": {
             "hash": "sha256d"
         },
@@ -4933,11 +4930,11 @@
                 }
             ]
         },
-        "hasDevFee": true,
         "shareMultiplier": 1,
-        "explorerBlockLink": "https://chain.tenzura.io/block/$height$",
-        "explorerTxLink": "https://chain.tenzura.io/tx/{0}",
-        "explorerAccountLink": "https://chain.tenzura.io/address/{0}"
+        "progpower": "kawpow",
+        "explorerBlockLink": "https://explorer.tenzura.io/block/$hash$",
+        "explorerTxLink": "https://explorer.tenzura.io/tx/{0}",
+        "explorerAccountLink": "https://explorer.tenzura.io/address/{0}"
     },
     "titcoin": {
         "name": "Titcoin",
