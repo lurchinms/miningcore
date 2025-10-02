@@ -4909,6 +4909,7 @@
     },
     "tenzura": {
         "name": "Tenzura",
+        "canonicalName": "Tenzura",
         "symbol": "TENZ",
         "family": "progpow",
         "website": "https://www.tenzura.io/",
