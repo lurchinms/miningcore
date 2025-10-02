@@ -4933,6 +4933,7 @@
                 }
             ]
         },
+        "hasDevFee": true,
         "shareMultiplier": 1,
         "explorerBlockLink": "https://chain.tenzura.io/block/$height$",
         "explorerTxLink": "https://chain.tenzura.io/tx/{0}",
