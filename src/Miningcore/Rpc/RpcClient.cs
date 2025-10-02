@@ -172,14 +172,6 @@ public class RpcClient
                 // read response
                 var responseContent = await response.Content.ReadAsStringAsync(ct);
 
-                 JObject jObject = JObject.Parse(responseContent);
-                if(jObject["result"]?["difficulty"]?["proof-of-work"] != null)
-                {
-                    double proofOfWork = (double)jObject["result"]["difficulty"]["proof-of-work"];
-                    jObject["result"]["difficulty"] = proofOfWork;
-                    responseContent = jObject.ToString();
-                }
-
                 logger.Trace(() => $"Received RPC response: {responseContent}");
 
                 // deserialize response
