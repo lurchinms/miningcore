@@ -1621,9 +1621,9 @@
         },
         "blockTemplateRpcExtraParams": [],
         "coinbaseTxVersion": 2,
-        "coinbaseTxComment": "DEM KriptoKyng",
         "isPseudoPoS": true,
         "HasBrokenSendMany": true,
+        "coinbaseTxComment": "KriptoKyng",
         "explorerBlockLink": "https://chainz.cryptoid.info/dem/block.dws?$height$.htm",
         "explorerTxLink": "https://chainz.cryptoid.info/dem/tx.dws?{0}.htm",
         "explorerAccountLink": "https://chainz.cryptoid.info/dem/address.dws?{0}.htm"
