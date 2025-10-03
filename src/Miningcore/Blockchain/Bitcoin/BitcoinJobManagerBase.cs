@@ -307,7 +307,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
     protected async Task<bool> AreDaemonsConnectedLegacyAsync(CancellationToken ct)
     {
         var response = await rpc.ExecuteAsync<DaemonInfo>(logger, BitcoinCommands.GetInfo, ct);
-
+        
         // update stats
         if(!string.IsNullOrEmpty(response.Response.Version))
             BlockchainStats.NodeVersion = (string) response.Response.Version;
@@ -462,7 +462,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
             if(errors.Any())
                 throw new PoolStartupException($"Init RPC failed: {string.Join(", ", errors.Select(y => y.Error.Message))}", poolConfig.Id);
         }
-
+        
         var proofOfWorkToken2 = responses[2].Response.SelectToken("difficulty.proof-of-work");
 
         if(proofOfWorkToken2 != null)
@@ -499,7 +499,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
 
         isPoS = poolConfig.Template is BitcoinTemplate {IsPseudoPoS: true} ||
             (difficultyResponse.Values().Any(x => x.Path == "proof-of-stake" && !difficultyResponse.Values().Any(x => x.Path == "proof-of-work")));
-
+        
         forcePoolAddressDestinationWithPubKey = poolConfig.Template is BitcoinTemplate {ForcePoolAddressDestinationWithPubKey: true};
 
         // Create pool address script from response
