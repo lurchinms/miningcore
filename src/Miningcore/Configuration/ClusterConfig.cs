@@ -145,6 +145,12 @@ public abstract partial class CoinTemplate
     [JsonProperty(Order = -9)]
     public string Telegram { get; set; }
 
+     /// <summary>
+    /// Github Group Link
+    /// </summary>
+    [JsonProperty(Order = -9)]
+    public string Github { get; set; }
+
     /// <summary>
     /// Arbitrary extension data
     /// </summary>
