@@ -18,6 +18,8 @@
 - POW (proof-of-work) & POS (proof-of-stake) support
 - Detailed per-pool logging to console & filesystem
 - Runs on Linux and Windows
+- Added Coin Maket Cap data to the API DATA
+- also added BrainOS Stratum V2 
 
 ## Contributions
 
