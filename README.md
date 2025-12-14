@@ -202,6 +202,8 @@ Refer to [this file](https://github.com/lurchinms/miningcore/blob/master/src/Min
 
 ### Monero
 
+- Monero daemon commmand to run `monerod --data-dir /home/user_name/wallet_location/.monero --log-file /dev/null --non-interactive --rpc-bind-ip 127.0.0.1 --out-peers 32 --p2p-bind-ip 0.0.0.0 --p2p-bind-port 18080 --confirm-external-bind`
+- Monero wallet command `monero-wallet-rpc --daemon-address 127.0.0.1:18081 --wallet-file=/home/user_name/wallet_location/.monero/miningcore --rpc-bind-port 18085 --rpc-bind-ip 127.0.0.1 --disable-rpc-login --prompt-for-password --log-level 1`
 - Monero's Wallet Daemon (monero-wallet-rpc) relies on HTTP digest authentication for authentication which is currently not supported by Miningcore. Therefore monero-wallet-rpc must be run with the `--disable-rpc-login` option. It is advisable to mitigate the resulting security risk by putting monero-wallet-rpc behind a reverse proxy like nginx with basic-authentication.
 - Miningcore utilizes RandomX's light-mode by default which consumes only **256 MB of memory per RandomX-VM**. A modern (2021) era CPU will be able to handle ~ 50 shares per second in this mode.
 - If you are running into throughput problems on your pool you can either increase the number of RandomX virtual machines in light-mode by adding `"randomXVmCount": x` to your pool configuration where x is at maximum equal to the machine's number of processor cores. Alternatively you can activate fast-mode by adding `"randomXFlagsAdd": "RANDOMX_FLAG_FULL_MEM"` to the pool configuration. Fast mode increases performance by 10x but requires roughly **3 GB of RAM per RandomX-VM**.
