@@ -45,7 +45,7 @@ public static class BitcoinUtils
         public static IDestination ECashAddressToDestination(string address, Network expectedNetwork)
     {
         var ecash = NBitcoin.Altcoins.ECash.Instance.GetNetwork(expectedNetwork.ChainName);
-        var trashAddress = ecash.Parse<NBitcoin.Altcoins.ECash.ETrashPubKeyAddress>(address);
+        var trashAddress = ecash.Parse<NBitcoin.Altcoins.ECash.BTrashPubKeyAddress>(address);
         return trashAddress.ScriptPubKey.GetDestinationAddress(ecash);
     }
 
