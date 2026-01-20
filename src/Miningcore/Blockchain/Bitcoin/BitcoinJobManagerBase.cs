@@ -482,7 +482,7 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
         var submitBlockResponse = responses[1];
         var blockchainInfoResponse = !hasLegacyDaemon ? responses[2].Response.ToObject<BlockchainInfo>() : null;
         var daemonInfoResponse = hasLegacyDaemon ? responses[2].Response.ToObject<DaemonInfo>() : null;
-         var difficultyResponse = proofOfWork != null ? proofOfWork : responses[3].Response.ToObject<JToken>();
+        var difficultyResponse = proofOfWork != null ? proofOfWork : responses[3].Response.ToObject<JToken>();
         var addressInfoResponse = responses[4].Error == null ? responses[4].Response.ToObject<AddressInfo>() : null;
 
         // chain detection
