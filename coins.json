@@ -582,37 +582,6 @@
     "explorerTxLink": "https://bit-explorer.pool.sexy/tx/{0}",
     "explorerAccountLink": "https://bit-explorer.pool.sexy/address/{0}"
   },
-  "bedrockcoin": {
-    "name": "BedrockCoin",
-    "canonicalName": "BedrockCoin",
-    "symbol": "BRK",
-    "family": "bitcoin",
-    "website": "https://thebedrockcoin.web.app/",
-    "market": "",
-    "twitter": "",
-    "telegram": "",
-    "discord": "https://discord.gg/ZeSW8xm8",
-    "github": "https://discord.gg/ZeSW8xm8",
-    "coinbaseHasher": {
-      "hash": "sha256d"
-    },
-    "headerHasher": {
-      "hash": "scrypt",
-      "args": [1024, 1]
-    },
-    "blockHasher": {
-      "hash": "reverse",
-      "args": [
-        {
-          "hash": "sha256d"
-        }
-      ]
-    },
-    "shareMultiplier": 65536,
-    "explorerBlockLink": "https://explorebrk.xyz/block/$hash$",
-    "explorerTxLink": "https://explorebrk.xyz/tx.dws?{0}.htm",
-    "explorerAccountLink": "https://explorebrk.xyz/ddress.dws?{0}.htm"
-  },
   "bitcoin": {
     "name": "Bitcoin",
     "canonicalName": "Bitcoin",
@@ -699,7 +668,7 @@
     "explorerTxLink": "http://explorer.btcd.io/#/TX?TX={0}",
     "explorerAccountLink": "http://explorer.btcd.io/#/address?address={0}"
   },
-  "bitcoinblue": {
+    "bitcoinblue": {
     "name": "Bitcoin Blue",
     "canonicalName": "Bitcoin Blue",
     "symbol": "BBLU",
@@ -1564,37 +1533,6 @@
     "explorerTxLink": "https://chainz.cryptoid.info/dgb/tx.dws?{0}.htm",
     "explorerAccountLink": "https://chainz.cryptoid.info/dgb/address.dws?{0}.htm"
   },
-    "dimecoin": {
-    "name": "DimeCoin",
-    "canonicalName": "dimeCoin",
-    "symbol": "DIME",
-    "family": "bitcoin",
-    "website": "https://www.dimecoinnetwork.com/",
-    "market": "https://coinmarketcap.com/currencies/dimecoin",
-    "twitter": "https://twitter.com/Dimecoin",
-    "telegram": "",
-    "discord": "https://discordapp.com/invite/JqcKF4v",
-    "github": "https://github.com/dime-coin/dimecoin",
-    "coinbaseHasher": {
-      "hash": "sha256d"
-    },
-    "headerHasher": {
-      "hash": "quark"
-    },
-    "blockHasher": {
-      "hash": "reverse",
-      "args": [
-        {
-          "hash": "quark"
-        }
-      ]
-    },
-    "hasMasterNodes": true,
-    "shareMultiplier": 65536,
-    "explorerBlockLink": "https://chainz.cryptoid.info/dime/block.dws?$height$.htm",
-    "explorerTxLink": "https://chainz.cryptoid.info/dime/tx.dws?{0}.htm",
-    "explorerAccountLink": "https://chainz.cryptoid.info/dime/address.dws?{0}.htm"
-  },
   "dogecoin": {
     "name": "Dogecoin",
     "canonicalName": "Dogecoin",
@@ -1663,11 +1601,12 @@
     "canonicalName": "eCash",
     "symbol": "XEC",
     "family": "bitcoin",
-    "website": "https://www.bitcoincash.org/",
-    "market": "https://coinmarketcap.com/currencies/ecash",
-    "twitter": "https://twitter.com/eCashOfficial",
-    "telegram": "",
-    "discord": "",
+    "website": "https://e.cash/",
+    "market": "",
+    "twitter": "https://twitter.com/ecashofficial",
+    "telegram": "https://t.me/ecash_official",
+    "discord": "https://discord.com/invite/d5EHW3PgTy",
+    "github": "https://github.com/Bitcoin-ABC/bitcoin-abc",
     "coinbaseHasher": {
       "hash": "sha256d"
     },
@@ -1685,7 +1624,7 @@
     "explorerBlockLink": "https://blockchair.com/ecash/block/$height$",
     "explorerTxLink": "https://blockchair.com/ecash/transaction/{0}",
     "explorerAccountLink": "https://blockchair.com/ecash/address/{0}",
-    "hasMinerFunds": true
+    "hasMinerFund": true
   },
   "emark": {
     "name": "Deutsche eMark",
@@ -1924,35 +1863,6 @@
     "explorerBlockLink": "https://fairbrixscan.com//block.dws?$height$.htm",
     "explorerTxLink": "https://fairbrixscan.com/tx/{0}",
     "explorerAccountLink": "https://fairbrixscan.com/address/{0}"
-  },
-  "fixedcoin": {
-    "name": "Fixedcoin ",
-    "canonicalName": "fixedcoin ",
-    "symbol": "FIX",
-    "family": "bitcoin",
-    "website": "https://web.fixedcoin.org/",
-    "market": "",
-    "twitter": "https://t.me/fixedcoin10000",
-    "telegram": "",
-    "discord": "https://discord.com/invite/e3rNt3JYSh",
-    "github": "https://github.com/Fixed-Blockchain/fixedcoin",
-    "coinbaseHasher": {
-      "hash": "sha256d"
-    },
-    "headerHasher": {
-      "hash": "sha256d"
-    },
-    "blockHasher": {
-      "hash": "reverse",
-      "args": [
-        {
-          "hash": "sha256d"
-        }
-      ]
-    },
-    "explorerBlockLink": "https://explorer.fixedcoin.org/block/$hash$",
-    "explorerTxLink": "https://explorer.fixedcoin.org/tx.dws?{0}.htm",
-    "explorerAccountLink": "https://explorer.fixedcoin.org/address.dws?{0}.htm"
   },
   "fewbit": {
     "name": "FewBit",
@@ -2254,6 +2164,7 @@
     "explorerBlockLink": "https://chainz.cryptoid.info/glc/block.dws?$height$.htm",
     "explorerTxLink": "https://chainz.cryptoid.info/glc/tx.dws?{0}.htm",
     "explorerAccountLink": "https://chainz.cryptoid.info/glc/address.dws?{0}.htm"
+
   },
   "groestlcoin": {
     "name": "Groestlcoin",
@@ -2930,7 +2841,7 @@
       ]
     },
     "shareMultiplier": 65536,
-    "explorerBlockLink": "https://explore2.marscoin.org/block/$hash$",
+    "explorerBlockLink": "https://explore2.marscoin.org/bvlock/$height$",
     "explorerTxLink": "https://explore2.marscoin.org/tx/{0}",
     "explorerAccountLink": "https://explore2.marscoin.org/address/{0}"
   },
@@ -3089,8 +3000,8 @@
     "explorerTxLink": "https://chainz.cryptoid.info/moon/tx.dws?{0}.htm",
     "explorerAccountLink": "https://chainz.cryptoid.info/moon/address.dws?{0}.htm"
   },
-  "mydogecoin": {
-    "name": "MyDogecoin",
+    "mydogecoin": {
+    "name": "mydogecoin",
     "canonicalName": "Mydogecoin",
     "symbol": "MYDOGE",
     "family": "bitcoin",
@@ -3116,9 +3027,10 @@
       ]
     },
     "shareMultiplier": 65536,
-    "explorerBlockLink": "https://explorer.mydogecoin.info/block-height/$height$",
-    "explorerTxLink": "https://explorer.mydogecoin.info/tx/{0}",
-    "explorerAccountLink": "https://explorer.mydogecoin.info/address/{0}"
+    "coinbaseMinConfimations": 251,
+    "explorerBlockLink": "https://explorer.mydogecoin.fun/block-height/$height$",
+    "explorerTxLink": "https://explorer.mydogecoin.fun/tx/{0}",
+    "explorerAccountLink": "https://explorer.mydogecoin.fun/address/{0}"
   },
   "namecoin": {
     "name": "Namecoin",
@@ -4973,9 +4885,9 @@
     "canonicalName": "Terracoin",
     "symbol": "TRC",
     "family": "bitcoin",
-    "website": "https://www.terracoin.io/",
-    "market": "https://coinmarketcap.com/currencies/terracoin",
-    "twitter": "https://twitter.com/Terracoin_TRC",
+    "website": "",
+    "market": "",
+    "twitter": "",
     "telegram": "",
     "discord": "",
     "coinbaseHasher": {
@@ -5687,35 +5599,6 @@
     "explorerBlockLink": "https://explorer.widecoin.org/block-height/$height$",
     "explorerTxLink": "https://explorer.widecoin.org/tx/{0}",
     "explorerAccountLink": "https://explorer.widecoin.org/address/{0}"
-  },
-  "wojakcoin": {
-    "name": "WojakCoin",
-    "canonicalName": "WojakCoin",
-    "symbol": "WJK",
-    "family": "bitcoin",
-    "website": "https://www.wojakcoin.cash/",
-    "market": "",
-    "twitter": "https://twitter.com/wojakcoin2017",
-    "telegram": "",
-    "discord": "https://discord.gg/tn4cyNKwm",
-    "github": "https://github.com/WojakCoinProj/wojakcore",
-    "coinbaseHasher": {
-      "hash": "sha256d"
-    },
-    "headerHasher": {
-      "hash": "sha256d"
-    },
-    "blockHasher": {
-      "hash": "reverse",
-      "args": [
-        {
-          "hash": "sha256d"
-        }
-      ]
-    },
-    "explorerBlockLink": "https://explorer.wojakcoin.cash/block/$hash$",
-    "explorerTxLink": "https://explorer.wojakcoin.cash/tx/{0}",
-    "explorerAccountLink": "https://explorer.wojakcoin.cash/address/{0}"
   },
   "woodcoin": {
     "name": "Woodcoin",
@@ -7275,18 +7158,18 @@
     "explorerAccountLink": "https://explorer.spectre-network.org/addresses/{0}"
   },
   "warthog": {
-    "name": "Warthog Network",
-    "canonicalName": "Warthog Network",
-    "symbol": "WART",
-    "family": "warthog",
-    "website": "https://www.warthog.network/",
-    "github": "https://github.com/warthog-network/Warthog",
-    "market": "https://www.coingecko.com/en/coins/warthog",
-    "twitter": "https://twitter.com/warthognetwork",
-    "telegram": "https://t.me/warthognetwork",
-    "discord": "https://discord.com/invite/QMDV8bGTdQ",
-    "explorerBlockLink": "https://wartscan.io/block/$height$",
-    "explorerTxLink": "https://wartscan.io/tx/{0}",
-    "explorerAccountLink": "https://wartscan.io/account/{0}"
-  }
+        "name": "Warthog Network",
+        "canonicalName": "Warthog Network",
+        "symbol": "WART",
+        "family": "warthog",
+        "website": "https://www.warthog.network/",
+        "github": "https://github.com/warthog-network/Warthog",
+        "market": "https://www.coingecko.com/en/coins/warthog",
+        "twitter": "https://twitter.com/warthognetwork",
+        "telegram": "https://t.me/warthognetwork",
+        "discord": "https://discord.com/invite/QMDV8bGTdQ",
+        "explorerBlockLink": "https://wartscan.io/block/$height$",
+        "explorerTxLink": "https://wartscan.io/tx/{0}",
+        "explorerAccountLink": "https://wartscan.io/account/{0}"
+    }
 }
