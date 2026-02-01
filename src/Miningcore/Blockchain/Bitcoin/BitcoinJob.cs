@@ -693,11 +693,7 @@ public class BitcoinJob
         JobId = jobId;
 
         var coinbaseString = !string.IsNullOrEmpty(cc.PaymentProcessing?.CoinbaseString) ?
-<<<<<<< HEAD
-            cc.PaymentProcessing?.CoinbaseString.Trim() : "Kriptokyng Pool";
-=======
-            cc.PaymentProcessing?.CoinbaseString.Trim() : "KriptoKyng Pool";
->>>>>>> parent of b7af96d (Revert "Merge branch 'main' of https://github.com/lurchinms/miningcore")
+            cc.PaymentProcessing?.CoinbaseString.Trim() : "Miningcore";
 
         scriptSigFinalBytes = new Script(Op.GetPushOp(Encoding.UTF8.GetBytes(coinbaseString))).ToBytes();
 

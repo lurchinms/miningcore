@@ -448,7 +448,6 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
         };
 
         var responses = await rpc.ExecuteBatchAsync(logger, ct, requests);
-        JValue proofOfWork = null;
 
         if(responses.Any(x => x.Error != null))
         {
@@ -462,27 +461,13 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
             if(errors.Any())
                 throw new PoolStartupException($"Init RPC failed: {string.Join(", ", errors.Select(y => y.Error.Message))}", poolConfig.Id);
         }
-        
-        var proofOfWorkToken2 = responses[2].Response.SelectToken("difficulty.proof-of-work");
-
-        if(proofOfWorkToken2 != null)
-        {
-            responses[2].Response["difficulty"] = new JValue((double) responses[2].Response["difficulty"]["proof-of-work"]);
-        }
-
-        var proofOfWorkToken3 = responses[3].Response.SelectToken("proof-of-work");
-
-        if(proofOfWorkToken3 != null)
-        {
-            proofOfWork = new JValue((double) responses[3].Response["proof-of-work"]);
-        }
 
         // extract results
         var validateAddressResponse = responses[0].Error == null ? responses[0].Response.ToObject<ValidateAddressResponse>() : null;
         var submitBlockResponse = responses[1];
         var blockchainInfoResponse = !hasLegacyDaemon ? responses[2].Response.ToObject<BlockchainInfo>() : null;
         var daemonInfoResponse = hasLegacyDaemon ? responses[2].Response.ToObject<DaemonInfo>() : null;
-        var difficultyResponse = proofOfWork != null ? proofOfWork : responses[3].Response.ToObject<JToken>();
+        var difficultyResponse = responses[3].Response.ToObject<JToken>();
         var addressInfoResponse = responses[4].Error == null ? responses[4].Response.ToObject<AddressInfo>() : null;
 
         // chain detection
@@ -566,9 +551,6 @@ public abstract class BitcoinJobManagerBase<TJob> : JobManagerBase<TJob>
 
             case BitcoinAddressType.BCash:
                 return BitcoinUtils.BCashAddressToDestination(poolConfig.Address, network);
-
-            case BitcoinAddressTypeECash:
-                return BitcoinUtils.ECashAddressToDestination(poolConfig.Address, network);
 
             case BitcoinAddressType.Litecoin:
                 return BitcoinUtils.LitecoinAddressToDestination(poolConfig.Address, network);
